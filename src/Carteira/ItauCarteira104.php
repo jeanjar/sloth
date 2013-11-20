@@ -1,6 +1,6 @@
 <?php
 
-class Carteira_ItauCarteira104 extends Banco_Itau
+class Carteira_ItauCarteira104 extends Carteira_ItauCarteira
 {
     public function __construct()
     {
