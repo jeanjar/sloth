@@ -1,6 +1,6 @@
 <?php
 
-class Carteira_ItauCarteira104 extends Carteira_ItauCarteira
+class Carteira_ItauCarteira104 extends Banco_Itau
 {
     public function __construct()
     {
@@ -10,6 +10,8 @@ class Carteira_ItauCarteira104 extends Carteira_ItauCarteira
         $this->descricao = 'Cobrança Simples';
         $this->permite_retorno = true;
         $this->permite_remessa = true;
+        $this->template_boleto = 'Itau';
+
         $this->arquivos = array(
             'retorno' => 'Retorno_CNAB240',
             'remessa' => '',
