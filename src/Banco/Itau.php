@@ -6,9 +6,10 @@ class Banco_Itau extends Banco
     {
         parent::__construct();
 
-        $this->nome = 'Itaú';
-        $this->sigla = 'i';
-        $this->info = 'Informações adicionais sobre o banco';
+        $this->banco_nome = 'Itaú';
+        $this->banco_sigla = 'i';
+        $this->banco_info = 'Informações adicionais sobre o banco';
+        $this->banco_codigo = 341;
     }
 
 }
