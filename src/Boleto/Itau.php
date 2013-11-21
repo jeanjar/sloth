@@ -26,8 +26,14 @@ class Boleto_Itau extends Boleto
             return false;
         }
 
-        $this->dadosBanco['banco_codigo_dv'] = $this->gerarCodigoBancoComDigitoVerificador($this->dadosBanco['banco_codigo']);
-        $this->dadosBanco['fator_vencimento'] = $this->gerarFatorVencimento($this->dadosBanco['data_vencimento']); 
-        
+        $this->dadosBoleto['banco_codigo_dv'] = $this->gerarCodigoBancoComDigitoVerificador($this->dadosBoleto['banco_codigo']);
+        $this->dadosBoleto['fator_vencimento'] = $this->gerarFatorVencimento($this->dadosBoleto['data_vencimento']); 
+        $this->dadosBoleto['valor_boleto'] = $this->acolchoarNumero($this->dadosBoleto['valor_boleto'], 10, 0);
+    }
+
+    function geraCodigoBancoComDigitoVerificador($numero) {
+        $parte1 = substr($numero, 0, 3);
+        $parte2 = $this->modulo11($parte1);
+        return $parte1 . "-" . $parte2;
     }
 } 

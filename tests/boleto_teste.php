@@ -5,7 +5,7 @@ include('../init.php');
 $boleto = new Boleto_Itau;
 
 $dadosBoleto = array(
-'nosso_numero' => '3412',
+'nosso_numero' => '1',
 'data_vencimento' => '10/12/2013',
 'valor_documento' => '19,90',
 'data_documento' => '20/11/2013',
@@ -19,8 +19,8 @@ $dadosBoleto = array(
 'beneficiario_cpf_cnpj' => '',
 'beneficiario_endereco' => array(),
 'beneficiario_cidade_estado' => 'Natal / RN',
-//'especie' => 'R$',
-//'beneficiario_razao_social' => 'Stepmoney',
+'especie' => 'R$',
+'beneficiario_razao_social' => 'Stepmoney',
 );
 
 /*
