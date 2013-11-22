@@ -12,6 +12,7 @@ class Sloth_Boleto
         'pagador',
         'pagador_endereco',
         'pagador_instrucoes',
+        'beneficiario',
         'beneficiario_agencia',
         'beneficiario_conta',
         'beneficiario_dv_conta',
