@@ -2,7 +2,7 @@
 
 include('../init.php');
 
-$cobranca = new Carteira_ItauCarteira104;
+$cobranca = new Sloth_Carteira_ItauCarteira104;
 
 echo $cobranca->indice . PHP_EOL;
 echo $cobranca->descricao . PHP_EOL;

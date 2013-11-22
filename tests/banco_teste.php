@@ -1,9 +1,9 @@
 <?php
 include '../init.php';
 
-$banco = new Banco_Itau;
+$banco = new Sloth_Banco_Itau;
 
-echo $banco->nome . PHP_EOL;
-echo $banco->info . PHP_EOL;
+echo $banco->banco_nome . PHP_EOL;
+echo $banco->banco_info . PHP_EOL;
 
 ?>
