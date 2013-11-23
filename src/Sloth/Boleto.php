@@ -12,6 +12,7 @@ class Sloth_Boleto
         'pagador',
         'pagador_endereco',
         'pagador_instrucoes',
+        'pagador_demonstrativo',
         'beneficiario',
         'beneficiario_agencia',
         'beneficiario_conta',
@@ -36,17 +37,42 @@ class Sloth_Boleto
 
     public function gerarFatorVencimento($data_vencimento)
     {
-        $data_vencimento = date('Y-m-d', strtotime($data_vencimento));
+        /*$data_vencimento = date('Y-m-d', strtotime($data_vencimento));
         $data_vencimento = strtotime($data_vencimento);
 
         $date = strtotime("1997-10-07");
 
         $datediff = abs($data_vencimento - $date);
 
-        return floor($datediff / (60*60*24));
-    }
+        return floor($datediff / (60*60*24));*/
+	    $data = explode("/",$data_vencimento); 
+	    $ano = $data[2];
+	    $mes = $data[1];
+	    $dia = $data[0];
+        return(abs(($this->_dateToDays("1997","10","07")) - ($this->_dateToDays($ano, $mes, $dia))));
+     }
 
-    public function modulo11($numero, $base, $resto = false)
+	public function _dateToDays($year,$month,$day) {
+	    $century = substr($year, 0, 2);
+	    $year = substr($year, 2, 2);
+	    if ($month > 2) {
+		    $month -= 3;
+	    } else {
+		    $month += 9;
+		    if ($year) {
+		        $year--;
+		    } else {
+		        $year = 99;
+		        $century--;
+		    }
+	    }
+	    return ( floor((  146097 * $century)    /  4 ) +
+		    floor(( 1461 * $year)        /  4 ) +
+		    floor(( 153 * $month +  2) /  5 ) +
+			$day +  1721119);
+	}
+        
+    public function modulo11($numero, $base, $retorne_resto = false)
     {
         $soma = 0;
         $fator = 2;
@@ -65,16 +91,16 @@ class Sloth_Boleto
 
         $resto = $soma % 11;
         
-        if($resto)
+        if($retorne_resto)
         {
             return $resto;
         }
-
         $digito = abs(11 - $resto);
+                
         return $digito;
     }
 
-    public function modulo10($numero, $base, $resto = false)
+    public function modulo10($numero, $base, $retorno_resto = false)
     {
         $soma = 0;
         $fator = 2;
@@ -94,7 +120,7 @@ class Sloth_Boleto
 
         $resto = $soma % 10;
 
-        if($resto)
+        if($retorno_resto)
         {
             return $resto;
         }
