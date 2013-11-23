@@ -58,7 +58,7 @@ class Sloth_Boleto_Itau extends Sloth_Boleto
 
             'resag' => ['posicao' => [34, 1]],
             'contadac' => ['posicao' => [35, 6]],
-            'zeros' => ['posicao' => [42, 3]],
+            'zeros' => ['posicao' => [41, 3]],
 
             'dv4' => ['posicao' => [4, 1]],
             'fator' => ['posicao' => [5, 4]],
