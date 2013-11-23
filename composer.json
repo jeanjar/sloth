@@ -1,0 +1,20 @@
+{
+    "name": "syohansson/sloth",
+    "description": "Micro API de auxílio a sistemas financeiros.",
+    "license": "Apache v2",
+    "authors": [
+        {
+            "name": "Stefan Yohansson",
+            "email": "sy.fen0@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+
+    },
+    "autoload": {
+        "psr-0": {
+            "Sloth": "src/"
+        }
+    }
+}
