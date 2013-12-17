@@ -64,6 +64,11 @@ class Sloth_Boleto_Itau extends Sloth_Boleto
             'fator' => ['posicao' => [5, 4]],
             'valor' => ['posicao' => [9, 10]],
         );
+
+        $codigo_torado = array(
+            'parte1' => ['posicao' => [0, 4]],
+            'parte2' => ['posicao' => [4, 43]]
+        );
         
         $codigo_barras_arr = Sloth_TxtHelper::toraLinha($this->dadosBoleto['codigo_barras'], $codigo_barras);
 
@@ -79,7 +84,6 @@ class Sloth_Boleto_Itau extends Sloth_Boleto
         $campo2 = Sloth_TxtHelper::mask('#####.##', $campo2.$dv2);
         $campo3 = Sloth_TxtHelper::mask('#####.##', $campo3.$dv3);
         $campo4 = $codigo_barras_arr['dv4'];
-//var_dump($codigo_barras_arr['fator']);die;
         $campo5 = $codigo_barras_arr['fator'] . $codigo_barras_arr['valor'];
 
         return "$campo1 $campo2 $campo3 $campo4 $campo5";
@@ -88,7 +92,6 @@ class Sloth_Boleto_Itau extends Sloth_Boleto
     private function gerarCodigoBarras()
     {
         $codigo_barras = $this->dadosBoleto['banco_codigo'] . $this->dadosBoleto['numero_moeda'] . $this->dadosBoleto['fator_vencimento'] . $this->dadosBoleto['valor_boleto_acolchoado'] . $this->dadosBoleto['carteira'] . $this->dadosBoleto['nosso_numero_acolchoado'] . $this->modulo10($this->dadosBoleto['beneficiario_agencia_acolchoado'] . $this->dadosBoleto['beneficiario_conta_acolchoado'] . $this->dadosBoleto['carteira'] . $this->dadosBoleto['nosso_numero_acolchoado'], 2) . $this->dadosBoleto['beneficiario_agencia_acolchoado'] . $this->dadosBoleto['beneficiario_conta_acolchoado'] . $this->modulo10($this->dadosBoleto['beneficiario_agencia_acolchoado'] . $this->dadosBoleto['beneficiario_conta_acolchoado'], 2) . '000';
-        
         $codigo_barras_dv = $this->gerarDigitoVerificadorCodigoBarras($codigo_barras);
 
         $linha = substr($codigo_barras, 0, 4) . $codigo_barras_dv . substr($codigo_barras, 4, 43);

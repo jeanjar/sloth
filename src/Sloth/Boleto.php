@@ -72,63 +72,87 @@ class Sloth_Boleto
 			$day +  1721119);
 	}
         
-    public function modulo11($numero, $base, $retorne_resto = false)
+    public function modulo11($num, $base, $retorne_resto = false)
     {
         $soma = 0;
         $fator = 2;
-        $numero_reverso = str_split(strrev($numero));
 
-        foreach($numero_reverso as $numeral)
+        /* Separacao dos numeros */
+        for ($i = strlen($num); $i > 0; $i--)
         {
-            $soma += $numeral * $fator;
-
-            if($fator == $base)
+            // pega cada numero isoladamente
+            $numeros[$i] = substr($num, $i - 1, 1);
+            // Efetua multiplicacao do numero pelo falor
+            $parcial[$i] = $numeros[$i] * $fator;
+            // Soma dos digitos
+            $soma += $parcial[$i];
+            if ($fator == $base)
             {
+                // restaura fator de multiplicacao para 2
                 $fator = 1;
             }
             $fator++;
         }
 
-        $resto = $soma % 11;
-        
-        if($retorne_resto)
+        /* Calculo do modulo 11 */
+        if ($retorne_resto == 0)
         {
+            $soma *= 10;
+            $digito = $soma % 11;
+            if ($digito == 10)
+            {
+                $digito = 0;
+            }
+            return $digito;
+        }
+        elseif ($retorne_resto == 1)
+        {
+            $resto = $soma % 11;
             return $resto;
         }
-        $digito = abs(11 - $resto);
-                
-        return $digito;
     }
 
-    public function modulo10($numero, $base, $retorno_resto = false)
+    public function modulo10($num, $base, $retorno_resto = false)
     {
-        $soma = 0;
+        $numtotal10 = 0;
         $fator = 2;
-        $numero_reverso = str_split(strrev($numero));
 
-        foreach($numero_reverso as $numeral)
+        // Separacao dos numeros
+        for ($i = strlen($num); $i > 0; $i--)
         {
-            $soma += $numeral * $fator;
-            
-            if($fator == $base)
+            // pega cada numero isoladamente
+            $numeros[$i] = substr($num, $i - 1, 1);
+            // Efetua multiplicacao do numero pelo (falor 10)
+            // 2002-07-07 01:33:34 Macete para adequar ao Mod10 do Itaú
+            $temp = $numeros[$i] * $fator;
+            $temp0 = 0;
+            foreach (preg_split('//', $temp, -1, PREG_SPLIT_NO_EMPTY) as $k => $v)
+            {
+                $temp0+=$v;
+            }
+            $parcial10[$i] = $temp0; //$numeros[$i] * $fator;
+            // monta sequencia para soma dos digitos no (modulo 10)
+            $numtotal10 += $parcial10[$i];
+            if ($fator == 2)
             {
                 $fator = 1;
-            } else {
-                $fator = 2;
+            }
+            else
+            {
+                $fator = 2; // intercala fator de multiplicacao (modulo 10)
             }
         }
 
-        $resto = $soma % 10;
-
-        if($retorno_resto)
+        // várias linhas removidas, vide função original
+        // Calculo do modulo 10
+        $resto = $numtotal10 % 10;
+        $digito = 10 - $resto;
+        if ($resto == 0)
         {
-            return $resto;
+            $digito = 0;
         }
 
-        $digito = abs(10 - $resto);
-
         return $digito;
-        
     }
 
 }
