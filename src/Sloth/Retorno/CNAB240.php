@@ -9,7 +9,7 @@ class Sloth_Retorno_CNAB240 extends Sloth_Retorno
     {
         parent::__construct($nomeArquivo, $evento);
         
-        $this->tamanho_permitido_linha = 400;
+        $this->tamanho_permitido_linha = 240;
 
         $this->identificador_header = 0;
         $this->identificador_trailer = 9;
