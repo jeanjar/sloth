@@ -149,10 +149,10 @@ class Sloth_Boleto_Itau extends Sloth_Boleto
 
 
         //Guarda inicial
-        ?><img src=<?php echo Sloth_Config::REL_PATH . Sloth_Config::BOLETO_ASSETS; ?>/p.png width=<?php echo $fino?> height=<?php echo $altura?> border=0><img 
-        src=<?php echo Sloth_Config::REL_PATH . Sloth_Config::BOLETO_ASSETS; ?>/b.png width=<?php echo $fino?> height=<?php echo $altura?> border=0><img 
-        src=<?php echo Sloth_Config::REL_PATH . Sloth_Config::BOLETO_ASSETS; ?>/p.png width=<?php echo $fino?> height=<?php echo $altura?> border=0><img 
-        src=<?php echo Sloth_Config::REL_PATH . Sloth_Config::BOLETO_ASSETS; ?>/b.png width=<?php echo $fino?> height=<?php echo $altura?> border=0><img 
+        ?><img src=<?php echo Sloth_Config::$rel_path . Sloth_Config::$assets; ?>/p.png width=<?php echo $fino?> height=<?php echo $altura?> border=0><img 
+        src=<?php echo Sloth_Config::$rel_path . Sloth_Config::$assets; ?>/b.png width=<?php echo $fino?> height=<?php echo $altura?> border=0><img 
+        src=<?php echo Sloth_Config::$rel_path . Sloth_Config::$assets; ?>/p.png width=<?php echo $fino?> height=<?php echo $altura?> border=0><img 
+        src=<?php echo Sloth_Config::$rel_path . Sloth_Config::$assets; ?>/b.png width=<?php echo $fino?> height=<?php echo $altura?> border=0><img 
         <?php
         $texto = $codigo_barras ;
         if((strlen($texto) % 2) <> 0){
@@ -171,7 +171,7 @@ class Sloth_Boleto_Itau extends Sloth_Boleto
               $f1 = $largo ;
             }
         ?>
-            src=<?php echo Sloth_Config::REL_PATH . Sloth_Config::BOLETO_ASSETS; ?>/p.png width=<?php echo $f1?> height=<?php echo $altura?> border=0><img 
+            src=<?php echo Sloth_Config::$rel_path . Sloth_Config::$assets; ?>/p.png width=<?php echo $f1?> height=<?php echo $altura?> border=0><img 
         <?php
             if (substr($f,$i,1) == "0") {
               $f2 = $fino ;
@@ -179,16 +179,16 @@ class Sloth_Boleto_Itau extends Sloth_Boleto
               $f2 = $largo ;
             }
         ?>
-            src=<?php echo Sloth_Config::REL_PATH . Sloth_Config::BOLETO_ASSETS; ?>/b.png width=<?php echo $f2?> height=<?php echo $altura?> border=0><img 
+            src=<?php echo Sloth_Config::$rel_path . Sloth_Config::$assets; ?>/b.png width=<?php echo $f2?> height=<?php echo $altura?> border=0><img 
         <?php
           }
         }
 
         // Draw guarda final
         ?>
-        src=<?php echo Sloth_Config::REL_PATH . Sloth_Config::BOLETO_ASSETS; ?>/p.png width=<?php echo $largo?> height=<?php echo $altura?> border=0><img 
-        src=<?php echo Sloth_Config::REL_PATH . Sloth_Config::BOLETO_ASSETS; ?>/b.png width=<?php echo $fino?> height=<?php echo $altura?> border=0><img 
-        src=<?php echo Sloth_Config::REL_PATH . Sloth_Config::BOLETO_ASSETS; ?>/p.png width=<?php echo 1?> height=<?php echo $altura?> border=0> 
+        src=<?php echo Sloth_Config::$rel_path . Sloth_Config::$assets; ?>/p.png width=<?php echo $largo?> height=<?php echo $altura?> border=0><img 
+        src=<?php echo Sloth_Config::$rel_path . Sloth_Config::$assets; ?>/b.png width=<?php echo $fino?> height=<?php echo $altura?> border=0><img 
+        src=<?php echo Sloth_Config::$rel_path . Sloth_Config::$assets; ?>/p.png width=<?php echo 1?> height=<?php echo $altura?> border=0> 
           <?php
         } //Fim da função
 
