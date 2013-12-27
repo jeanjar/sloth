@@ -7,8 +7,8 @@ class Sloth_Banco extends Sloth_Cobranca
     public $banco_info;
     public $banco_codigo;
 
-    public function __construct()
+    public function __construct($args)
     {
-
+        parent::__construct($args);
     }
 }

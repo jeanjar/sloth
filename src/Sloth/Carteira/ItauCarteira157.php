@@ -2,9 +2,10 @@
 
 class Sloth_Carteira_ItauCarteira157 extends Sloth_Banco_Itau
 {
-    public function __construct()
+
+    public function __construct($args)
     {
-        parent::__construct();
+        parent::__construct($args);
 
         $this->indice = 157;
         $this->descricao = 'Cobrança Simples';
@@ -20,7 +21,7 @@ class Sloth_Carteira_ItauCarteira157 extends Sloth_Banco_Itau
 
     public function processarRetorno($caminho_arquivo, $evento)
     {
-        if($this->permite_retorno && array_key_exists('retorno', $this->arquivos))
+        if ($this->permite_retorno && array_key_exists('retorno', $this->arquivos))
         {
             $retorno = new $this->arquivos['retorno']($caminho_arquivo, $evento);
             $retorno->processar();
@@ -34,7 +35,7 @@ class Sloth_Carteira_ItauCarteira157 extends Sloth_Banco_Itau
     public function gerarBoleto($dadosBoleto)
     {
         $boleto = new $this->template_boleto;
-        if(!empty($dadosBoleto))
+        if (!empty($dadosBoleto))
         {
             $dadosBoleto['carteira'] = $this->indice;
             $dadosBoleto['banco_codigo'] = $this->banco_codigo;
@@ -42,13 +43,14 @@ class Sloth_Carteira_ItauCarteira157 extends Sloth_Banco_Itau
         }
         $retorno = $boleto->configurarBoleto($dadosBoleto);
 
-        if(empty($retorno))
+        if (empty($retorno))
         {
             ob_start();
-                $boleto->renderizar();
+            $boleto->renderizar();
             return ob_get_clean();
         }
 
         return $retorno;
     }
+
 }

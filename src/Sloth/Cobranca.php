@@ -3,10 +3,10 @@
 class Sloth_Cobranca
 {
     public $recorrente;
-    public $registrada;
+    public $registrada;       
     
-    public function __construct()
+    public function __construct($args)
     {
-        
+        Sloth_Config::init($args);
     }
 }
