@@ -2,13 +2,15 @@
 
 class Sloth_Retorno_CNAB240Itau extends Sloth_Retorno_CNAB240
 {
+
     public $tamanho_permitido_linha;
+
     public $mapa_identificadores = array();
 
     public function __construct($nomeArquivo, $evento)
     {
         parent::__construct($nomeArquivo, $evento);
-        
+
         $this->tamanho_permitido_linha = 240;
 
         $this->identificador_header = 0;
@@ -18,7 +20,7 @@ class Sloth_Retorno_CNAB240Itau extends Sloth_Retorno_CNAB240
         $this->mapa_identificadores = array(
             $this->identificador_header => [$this, 'processarHeader'],
             $this->identificador_trailer => [$this, 'processarTrailer'],
-            $this->identificador_detalhe =>[$this, 'processarDetalhe'],
+            $this->identificador_detalhe => [$this, 'processarDetalhe'],
         );
     }
 
@@ -49,11 +51,10 @@ class Sloth_Retorno_CNAB240Itau extends Sloth_Retorno_CNAB240
             'data_credito' => ['posicao' => [114, 6], 'formatter' => ['Sloth_TxtHelper', 'formataData']],
             'brancos' => ['posicao' => [120, 275]],
             'sequencial_registro' => ['posicao' => [395, 6]]
- 
         );
-        
+
         $mapaFormatado = Sloth_TxtHelper::toraLinha($linha, $mapaHeader);
-        
+
         return $mapaFormatado;
     }
 
@@ -65,7 +66,7 @@ class Sloth_Retorno_CNAB240Itau extends Sloth_Retorno_CNAB240
             'numero_inscricao' => ['posicao' => [4, 14]],
             'agencia' => ['posicao' => [18, 4]],
             'dv_agencia' => ['posicao' => [22, 2]],
-            'conta_corrente_beneficiario' => ['posicao' => [24, 5]], 
+            'conta_corrente_beneficiario' => ['posicao' => [24, 5]],
             'dv_conta_corrente_beneficario' => ['posicao' => [29, 1]],
             'brancos' => ['posicao' => [30, 8]],
             'uso_empresa' => ['posicao' => [38, 25]],
@@ -79,7 +80,7 @@ class Sloth_Retorno_CNAB240Itau extends Sloth_Retorno_CNAB240
             'data_ocorrencia' => ['posicao' => [111, 6], 'formatter' => ['Sloth_TxtHelper', 'formataData']],
             'numero_documento' => ['posicao' => [117, 10]],
             'nosso_numero_confirmacao' => ['posicao' => [127, 8]],
-            'vencimento' => ['posicao' => [147, 6]],
+            'vencimento' => ['posicao' => [147, 6], 'formatter' => ['Sloth_TxtHelper', 'formataData']],
             'valor_titulo' => ['posicao' => [153, 13], 'formatter' => ['Sloth_TxtHelper', 'formataNumero']],
             'banco_codigo' => ['posicao' => [166, 3]],
             'agencia_cobradora' => ['posicao' => [169, 4]],
@@ -100,8 +101,6 @@ class Sloth_Retorno_CNAB240Itau extends Sloth_Retorno_CNAB240
             'mensagem_info' => ['posicao' => [378, 8]],
             'codigo_liquidacao' => ['posicao' => [393, 2]],
             'numero_sequencial' => ['posicao' => [395, 6]],
-            
-            
         );
 
         $mapaFormatado = Sloth_TxtHelper::toraLinha($linha, $mapaDetalhe);
@@ -116,52 +115,49 @@ class Sloth_Retorno_CNAB240Itau extends Sloth_Retorno_CNAB240
             'retorno' => ['posicao' => [2, 1]],
             'tipo_registro' => ['posicao' => [3, 2]],
             'codigo_banco' => ['posicao' => [5, 3]],
-            
             'cobranca_simples_quantidade_titulos' => ['posicao' => [18, 8]],
-            'cobranca_simples_valor_total' => ['posicao' => [26, 14],  'formatter' => ['Sloth_TxtHelper', 'formataNumero']],
+            'cobranca_simples_valor_total' => ['posicao' => [26, 14], 'formatter' => ['Sloth_TxtHelper', 'formataNumero']],
             'cobranca_simples_numero_aviso' => ['posicao' => [40, 8]],
-            
             'cobranca_vinculada_quantidade_titulos' => ['posicao' => [58, 8]],
-            'cobranca_vinculada_valor_total' => ['posicao' => [66, 14],  'formatter' => ['Sloth_TxtHelper', 'formataNumero']],
+            'cobranca_vinculada_valor_total' => ['posicao' => [66, 14], 'formatter' => ['Sloth_TxtHelper', 'formataNumero']],
             'cobranca_vinculada_numero_aviso' => ['posicao' => [80, 8]],
-
             'cobranca_caucionada_quantidade_titulos' => ['posicao' => [178, 8]],
-            'cobranca_caucionada_valor_total' => ['posicao' => [186, 14],  'formatter' => ['Sloth_TxtHelper', 'formataNumero']],
+            'cobranca_caucionada_valor_total' => ['posicao' => [186, 14], 'formatter' => ['Sloth_TxtHelper', 'formataNumero']],
             'cobranca_caucionada_numero_aviso' => ['posicao' => [200, 8]],
-
             'controle_arquivo' => ['posicao' => [208, 5]],
             'quantidade_detalhes' => ['posicao' => [213, 8]],
-            'valor_total_titulos' => ['posicao' => [221, 14],  'formatter' => ['Sloth_TxtHelper', 'formataNumero']],
-            
+            'valor_total_titulos' => ['posicao' => [221, 14], 'formatter' => ['Sloth_TxtHelper', 'formataNumero']],
             'sequencial' => ['posicao' => [395, 6]],
         );
 
         $mapaFormatado = Sloth_TxtHelper::toraLinha($linha, $mapaTrailer);
-        
+
         return $mapaFormatado;
     }
 
     public function processarLinha($num, $linha)
     {
         $tamanho_linha = strlen($linha);
-        
+
         $linha = " $linha";
 
         $tipo_linha = substr($linha, 1, 1);
-        
-        if(in_array($tipo_linha, array_keys($this->mapa_identificadores)))
+
+        if (in_array($tipo_linha, array_keys($this->mapa_identificadores)))
         {
             $linha_array_formatada = call_user_func_array($this->mapa_identificadores[$tipo_linha], [$num, $linha]);
-        } else {
+        }
+        else
+        {
             $linha_array_formatada = [];
         }
 
         return $linha_array_formatada;
-
-    } 
+    }
 
     public function processar()
     {
         parent::processar();
     }
+
 }

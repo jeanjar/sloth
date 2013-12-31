@@ -2,11 +2,12 @@
 
 abstract class Sloth_Arquivo
 {
+
     /**
      * @property string $nomeArquivo Nome do arquivo de remessa que será gerado ao fim do processamento
      */
     protected $nomeArquivo = '';
-    
+
     public function defineNomeArquivo($arquivo)
     {
         $this->nomeArquivo = $arquivo;
@@ -17,7 +18,7 @@ abstract class Sloth_Arquivo
     {
         return $this->nomeArquivo;
     }
-    
+
     /**
      * @property string $eventoProcessamentoLinha Evento chamado após processar uma linha para ações futuras
      */
@@ -36,11 +37,12 @@ abstract class Sloth_Arquivo
 
     public function __construct($nomeArquivo = null, $evento = null)
     {
-        if($nomeArquivo)
+        if ($nomeArquivo)
+        {
             $this->defineNomeArquivo($nomeArquivo);
+        }
         $this->defineEvento($evento);
-    } 
+    }
 
     public abstract function processarLinha($num, $linha);
-
 }
