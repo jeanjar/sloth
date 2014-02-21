@@ -168,7 +168,10 @@ class Sloth_Retorno_CNAB400_Itau extends Sloth_Retorno_CNAB400
             }
         }
         
-        $mapaFormatado['codigo_ocorrencia_permite_processamento'] = true;
+        if(!isset($mapaFormatado['codigo_ocorrencia_permite_processamento']))
+        {
+           $mapaFormatado['codigo_ocorrencia_permite_processamento'] = true;
+        }
         
         return $mapaFormatado;
     }
