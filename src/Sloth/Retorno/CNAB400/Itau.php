@@ -41,7 +41,7 @@ class Sloth_Retorno_CNAB400_Itau extends Sloth_Retorno_CNAB400
     {
         parent::__construct($nomeArquivo, $evento);
 
-        $this->tamanho_permitido_linha = 240;
+        $this->tamanho_permitido_linha = 400;
 
         $this->identificador_header = 0;
         
