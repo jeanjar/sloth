@@ -1,9 +1,39 @@
 <?php
 
-class Sloth_Retorno_CNAB240Itau extends Sloth_Retorno_CNAB240
+class Sloth_Retorno_CNAB400_Itau extends Sloth_Retorno_CNAB400
 {
 
     public $tamanho_permitido_linha;
+    
+    public static $codigo_ocorrencia_map = [
+        // True (instruções que aceitam o boleto)
+        1 => [
+            '02' => ['index' => 'mensagem_info'],
+            '04' => ['Alteração de Dados - Nova Entrada ou Alteração/Exclusão de Dados Acatada'],
+            '05' => ['Alteração de Dados - Baixa'],
+            '06' => ['Baixa Simples'],
+            '07' => ['Liquidação Parcial - Cobrança Inteligente'],
+            '08' => ['Liquidação em Cartório'],
+            '09' => ['Baixa Simples'],
+            '10' => ['Baixa por ter sido liquidado'],
+            '12' => ['Abatimento Concebido'],
+            '13' => ['Abatimento Cancelado'],
+            
+            
+        ],
+        // False (instruções que rejeitam) 
+        0 => [
+            '03' => ['index' => 'mensagem_info'],
+            '15' => ['Baixas Rejeitadas'],
+            '16' => ['index' => 'mensagem_info'],
+            '19' => ['Confirma Recebimento de Instrução de Protesto'],
+            '20' => ['Confirma Recebimento de Instrução de Sustanção de Protesto/Tarifa'],
+            '21' => ['Confirma Recebimento de Instrução de Não Protestar'],
+            '29' => ['Tarifa de Manutenção de Títulos Vencidos'],
+            '32' => ['Baixa por ter sido protestado'],
+            '57' => ['Instrução Cancelada'],
+        ],
+    ];
 
     public $mapa_identificadores = array();
 
@@ -14,7 +44,9 @@ class Sloth_Retorno_CNAB240Itau extends Sloth_Retorno_CNAB240
         $this->tamanho_permitido_linha = 240;
 
         $this->identificador_header = 0;
+        
         $this->identificador_trailer = 9;
+        
         $this->identificador_detalhe = 1;
 
         $this->mapa_identificadores = array(
@@ -104,7 +136,40 @@ class Sloth_Retorno_CNAB240Itau extends Sloth_Retorno_CNAB240
         );
 
         $mapaFormatado = Sloth_TxtHelper::toraLinha($linha, $mapaDetalhe);
+        
+        $mapaFormatado = $this->transcreverMensagemInfo($mapaFormatado);
 
+        return $mapaFormatado;
+    }
+    
+    private function transcreverMensagemInfo($mapaFormatado)
+    {
+        /**
+        *   Adicionando mensagem info a força de acordo com o retorno do banco (código ocorrência)
+        **/
+        if(!$mapaFormatado['mensagem_info'])
+        {
+            foreach(self::$codigo_ocorrencia_map as $key => $value)
+            {
+                if(!in_array($mapaFormatado['codigo_ocorrencia'], array_keys($value)))
+                {
+                    continue;
+                }
+                
+                $k = key($value[$mapaFormatado['codigo_ocorrencia']]);
+                
+                if(is_int($k))
+                {
+                    $mapaFormatado['mensagem_info'] =  $mapaFormatado['codigo_ocorrencia'] . ' - ' . current($value[$mapaFormatado['codigo_ocorrencia']]);
+                } else {
+                    $mapaFormatado['mensagem_info'] = $mapaFormatado[$value[$mapaFormatado['codigo_ocorrencia']][$k]];
+                }
+                $mapaFormatado['codigo_ocorrencia_permite_processamento'] = (bool) $key;
+            }
+        }
+        
+        $mapaFormatado['codigo_ocorrencia_permite_processamento'] = true;
+        
         return $mapaFormatado;
     }
 
