@@ -11,19 +11,17 @@ class Sloth_Retorno_CNAB400_Itau extends Sloth_Retorno_CNAB400
             '02' => ['index' => 'mensagem_info'],
             '04' => ['Alteração de Dados - Nova Entrada ou Alteração/Exclusão de Dados Acatada'],
             '05' => ['Alteração de Dados - Baixa'],
-            '06' => ['Baixa Simples'],
+            '06' => ['Liquidação Normal'],
             '07' => ['Liquidação Parcial - Cobrança Inteligente'],
             '08' => ['Liquidação em Cartório'],
             '09' => ['Baixa Simples'],
             '10' => ['Baixa por ter sido liquidado'],
             '12' => ['Abatimento Concebido'],
-            '13' => ['Abatimento Cancelado'],
-            
-            
         ],
         // False (instruções que rejeitam) 
         0 => [
             '03' => ['index' => 'mensagem_info'],
+            '13' => ['Abatimento Cancelado'],
             '15' => ['Baixas Rejeitadas'],
             '16' => ['index' => 'mensagem_info'],
             '19' => ['Confirma Recebimento de Instrução de Protesto'],
