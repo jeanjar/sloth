@@ -2,9 +2,9 @@
 
 class Sloth_Carteira_ItauCarteira104 extends Sloth_Banco_Itau
 {
-    public function __construct()
+    public function __construct($args)
     {
-        parent::__construct();
+        parent::__construct($args);
 
         $this->indice = 104;
         $this->descricao = 'Cobrança Simples';

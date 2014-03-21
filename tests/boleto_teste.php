@@ -2,7 +2,7 @@
 
 include('../init.php');
 
-$carteira = new Sloth_Carteira_ItauCarteira104;
+$carteira = new Sloth_Carteira_ItauCarteira104(['assets' => Sloth_Config::BOLETO_ASSETS,'rel_path' => Sloth_Config::REL_PATH]);
 
 $dadosBoleto = array(
 'nosso_numero' => '1',
