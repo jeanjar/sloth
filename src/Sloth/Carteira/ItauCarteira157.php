@@ -12,7 +12,7 @@ class Sloth_Carteira_ItauCarteira157 extends Sloth_Banco_Itau
         $this->permite_retorno = true;
         $this->permite_remessa = false;
         $this->template_boleto = 'Sloth_Boleto_Itau';
-
+        
         $this->arquivos = array(
             'retorno' => 'Sloth_Retorno_CNAB240',
             'remessa' => '',
@@ -46,7 +46,7 @@ class Sloth_Carteira_ItauCarteira157 extends Sloth_Banco_Itau
         if (empty($retorno))
         {
             ob_start();
-            $boleto->renderizar();
+            $boleto->renderizar($this->template_path, $this->template_name);
             return ob_get_clean();
         }
 
