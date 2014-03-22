@@ -8,32 +8,12 @@ class Sloth_Boleto_Brasil extends Sloth_Boleto
     public function __construct()
     {
         parent::__construct();
-        $this->dadosBoletoRequeridos = array_merge($this->dadosBoletoRequeridos, ['especie']);
-        
-        $this->dadosBoletoRequeridos = array(
-        'nosso_numero',
-        'data_vencimento',
-        'valor_boleto',
-        'data_documento',
-        'pagador',
-        'pagador_endereco',
-        'pagador_instrucoes',
-        'pagador_demonstrativo',
-        'beneficiario',
-        'beneficiario_agencia',
-        'beneficiario_conta',
-        'beneficiario_dv_conta',
-        'identificacao',
-        'beneficiario_cpf_cnpj',
-        'beneficiario_endereco',
-        'beneficiario_cidade_estado',
-        'beneficiario_razao_social',
+        $this->dadosBoletoRequeridos = array_merge($this->dadosBoletoRequeridos, ['especie',
         'aceite',
         'especie_doc',
         'numero_documento',
         'contrato',
-        'pagador_identificador'
-        );
+        'pagador_identificador']);
     }
     
     public function configurarBoleto($dadosBoleto = array())
