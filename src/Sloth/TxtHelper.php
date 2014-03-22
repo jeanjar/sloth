@@ -14,6 +14,15 @@ class Sloth_TxtHelper
 
         return $valor;
     }
+    
+    public static function formataConvenio($numero, $loop, $insert)
+    {
+        while(strlen($numero)<$loop){
+            $numero = $numero . $insert;
+        }
+        
+        return $numero;
+    }
 
     public function formataData($data)
     {
