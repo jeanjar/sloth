@@ -48,7 +48,7 @@ class Sloth_Carteira_BrasilCarteira17 extends Sloth_Banco_Brasil
         if(empty($retorno))
         {
             ob_start();
-                $boleto->renderizar();
+                $boleto->renderizar($this->template_path, $this->template_name);
             return ob_get_clean();
         }
 
