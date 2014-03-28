@@ -478,15 +478,15 @@ do Pagador</b></div></TD></tr></tbody></table>
         <p><?php echo $demonstrativo; ?></p>        
     <?php endforeach; ?>
         <table class="header" border=0 cellspacing="0" cellpadding="0">
-        <tbody>
-        <tr>
-            <td width=150><IMG src="<?php echo Sloth_Config::$rel_path . Sloth_Config::$assets; ?>/logobb.jpg"></td>
-            <td width=50>
-        <div class="field_cod_banco"><?php echo $this->dadosBoleto['banco_codigo']; ?></div>
-            </td>
-            <td class="linha_digitavel"><?php echo $this->dadosBoleto["linha_digitavel"]?></td>
-        </tr>
-        </tbody>
+            <tbody>
+                <tr valign="bottom">
+                    <td width="150" valign="bottom"><img src="<?php echo Sloth_Config::$rel_path . Sloth_Config::$assets; ?>/logobb.jpg"></td>
+                    <td width="80" valign="bottom" align="center">
+                        <div class="field_cod_banco">&nbsp;&nbsp;<?php echo $this->dadosBoleto['banco_codigo']; ?>&nbsp;&nbsp;</div>
+                    </td>
+                    <td class="linha_digitavel" valign="bottom"><?php echo $this->dadosBoleto["linha_digitavel"]?></td>
+                </tr>
+            </tbody>
         </table>
 
         <table class="line" cellspacing="0" cellpadding="0">
@@ -500,11 +500,11 @@ do Pagador</b></div></TD></tr></tbody></table>
         </tr>
 
         <tr class="campos">
-            <td class="beneficiario"><?php echo $this->dadosBoleto["beneficiario"]; ?>&nbsp;</td>
+            <td class="beneficiario"><?php echo $this->dadosBoleto["beneficiario"]; ?>&nbsp;- <?php echo $this->dadosBoleto['beneficiario_cpf_cnpj'] ?></td>
             <td class="ag_cod_beneficiario"><?php echo $this->dadosBoleto["beneficiario_agencia"] . '/' . $this->dadosBoleto['beneficiario_conta'] . '-' . $this->dadosBoleto['beneficiario_dv_conta'] ?> &nbsp;</td>
             <td class="especie"><?php echo $this->dadosBoleto["especie"]?>&nbsp;</td>
             <TD class="qtd"><?php ''?>&nbsp;</td>
-            <TD class="nosso_numero"><?php echo $this->dadosBoleto["nosso_numero"]?>&nbsp;</td>
+            <TD class="nosso_numero"><?php echo $this->dadosBoleto["convenio"]?><?php echo $this->dadosBoleto["nosso_numero"]?>&nbsp;</td>
         </tr>
         </tbody>
         </table>
@@ -572,12 +572,12 @@ do Pagador</b></div></TD></tr></tbody></table>
 
         <table class="header" border=0 cellspacing="0" cellpadding="0">
         <tbody>
-        <tr>
-            <td width=150><IMG src="<?php echo Sloth_Config::$rel_path . Sloth_Config::$assets; ?>/logobb.jpg"></td>
-            <td width=50>
-        <div class="field_cod_banco"><?php echo $this->dadosBoleto['banco_codigo']; ?></div>
+        <tr valign="bottom">
+            <td width=150 valign="bottom"><IMG src="<?php echo Sloth_Config::$rel_path . Sloth_Config::$assets; ?>/logobb.jpg"></td>
+            <td width=80 valign="bottom" align="center">
+        <div class="field_cod_banco">&nbsp;&nbsp;<?php echo $this->dadosBoleto['banco_codigo']; ?>&nbsp;&nbsp;</div>
             </td>
-            <td class="linha_digitavel"><?php echo $this->dadosBoleto["linha_digitavel"]?></td>
+            <td class="linha_digitavel" valign="bottom"><?php echo $this->dadosBoleto["linha_digitavel"]?></td>
         </tr>
         </tbody>
         </table>
@@ -602,7 +602,7 @@ do Pagador</b></div></TD></tr></tbody></table>
             <td class="ag_cod_beneficiario2">Ag&ecirc;ncia/C&oacute;digo beneficiario</td>
         </tr>
         <tr class="campos">
-            <td class="beneficiario2"><?php echo $this->dadosBoleto["beneficiario"]?></td>
+            <td class="beneficiario2"><?php echo $this->dadosBoleto["beneficiario"]; ?>&nbsp;- <?php echo $this->dadosBoleto['beneficiario_cpf_cnpj'] ?></td>
             <td class="ag_cod_beneficiario2"><?php echo $this->dadosBoleto["beneficiario_agencia"] . '/' . $this->dadosBoleto['beneficiario_conta'] . '-' . $this->dadosBoleto['beneficiario_dv_conta']?></td>
         </tr>
         </tbody>
@@ -624,7 +624,7 @@ do Pagador</b></div></TD></tr></tbody></table>
             <td class="especie_doc"><?php echo $this->dadosBoleto["especie_doc"]?></td>
             <td class="aceite"><?php echo $this->dadosBoleto["aceite"] ?></td>
             <td class="data_process"><?php echo $this->dadosBoleto["data_documento"]?></td>
-            <td class="nosso_numero2"><?php echo $this->dadosBoleto["nosso_numero"]?></td>
+            <td class="nosso_numero2"><?php echo $this->dadosBoleto["convenio"]?><?php echo $this->dadosBoleto["nosso_numero"]?></td>
         </tr>
         </tbody>
         </table>
@@ -641,7 +641,7 @@ do Pagador</b></div></TD></tr></tbody></table>
         </tr>
         <tr class="campos">
             <td class="reservado">&nbsp;</td>
-            <td class="carteira"><?php echo $this->dadosBoleto["carteira"]?></td>
+            <td class="carteira"><?php echo $this->dadosBoleto["carteira"]?><?php echo isset($this->dadosBoleto["variacao_carteira"]) ? $this->dadosBoleto["variacao_carteira"] : '&nbsp;' ?></td>
             <td class="especie2"><?php echo $this->dadosBoleto["especie"]?></td>
             <td class="qtd2"><?php echo ' ' ?></td>
             <td class="xvalor"><?php echo ' ' ?></td>
@@ -752,7 +752,7 @@ do Pagador</b></div></TD></tr></tbody></table>
         </tr>
         <tr class="campos">
             <td class="pagador2">
-                <p><?php echo $this->dadosBoleto["pagador"]?></p>
+                <p><?php echo $this->dadosBoleto["pagador"]?> - <?php echo $this->dadosBoleto['pagador_identificador'] ?></p>
                 <?php foreach($this->dadosBoleto["pagador_endereco"] as $endereco): ?>
                     <p><?php echo $endereco ?></p> 
                 <?php endforeach; ?>
