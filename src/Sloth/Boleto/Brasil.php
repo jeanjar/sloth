@@ -104,7 +104,7 @@ class Sloth_Boleto_Brasil extends Sloth_Boleto
         
         // Campo 1
         $partes_concat = $codigo_barras_arr['campo1_parte1'] . $codigo_barras_arr['campo1_parte2'];
-        $codigo_barras_arr['campo1_parte3'] = $this->modulo10($parte3);
+        $codigo_barras_arr['campo1_parte3'] = $this->modulo10($parte3, 2);
         $codigo_barras_arr['campo1_parte4'] = $partes_concat . $codigo_barras_arr['campo1_parte3'];
         
         $codigo_torado = array(
@@ -117,7 +117,7 @@ class Sloth_Boleto_Brasil extends Sloth_Boleto
         $campo1 = $campo1_tored['campo1_parte5'] . $campo1_tored['campo1_parte6'];
         
         // Campo 2
-        $codigo_barras_arr['campo2_parte2'] = $this->modulo10($codigo_barras_arr['campo2_parte1']);
+        $codigo_barras_arr['campo2_parte2'] = $this->modulo10($codigo_barras_arr['campo2_parte1'], 2);
         $codigo_barras_arr['campo2_parte3'] = $codigo_barras_arr['campo2_parte1'] . $codigo_barras_arr['campo2_parte2'];
         
         $codigo_torado = array(
@@ -130,7 +130,7 @@ class Sloth_Boleto_Brasil extends Sloth_Boleto
         $campo2 = $campo2_tored['campo2_parte4'] . $campo2_tored['campo2_parte5'];
         
         // Campo 3
-        $codigo_barras_arr['campo3_parte2'] = $this->modulo10($codigo_barras_arr['campo3_parte1']);
+        $codigo_barras_arr['campo3_parte2'] = $this->modulo10($codigo_barras_arr['campo3_parte1'], 2);
         $codigo_barras_arr['campo3_parte3'] = $codigo_barras_arr['campo3_parte1'] . $codigo_barras_arr['campo3_parte2'];
         
         $codigo_torado = array(
@@ -166,7 +166,7 @@ class Sloth_Boleto_Brasil extends Sloth_Boleto
         return $linha;
     }
 
-    private function gerarDigitoVerificadorCodigoBarras($codigo_barras)
+    private function gerarDigitoVerificadorCodigoBarras()
     {
         $codigo_digito = $this->dadosBoleto['banco_codigo'] . $this->dadosBoleto['numero_moeda'] . $this->dadosBoleto['fator_vencimento'] . $this->dadosBoleto['valor_boleto_acolchoado'] . $this->dadosBoleto['zeros_livre'] . $this->dadosBoleto['convenio'] . $this->dadosBoleto['nosso_numero_acolchoado'] . $this->dadosBoleto['carteira'];
         

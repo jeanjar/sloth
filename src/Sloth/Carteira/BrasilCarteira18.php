@@ -1,16 +1,16 @@
 <?php
 
-class Sloth_Carteira_BrasilCarteira17 extends Sloth_Banco_Brasil
+class Sloth_Carteira_BrasilCarteira18 extends Sloth_Banco_Brasil
 {
 
     public function __construct($args)
     {
         parent::__construct($args);
 
-        $this->indice = 17;
+        $this->indice = 18;
         $this->descricao = 'Cobrança Simples';
         $this->permite_retorno = true;
-        $this->permite_remessa = true;
+        $this->permite_remessa = false;
         $this->template_boleto = 'Sloth_Boleto_Brasil';
         
         $this->arquivos = array(
@@ -48,7 +48,7 @@ class Sloth_Carteira_BrasilCarteira17 extends Sloth_Banco_Brasil
         if(empty($retorno))
         {
             ob_start();
-                $boleto->renderizar();
+                $boleto->renderizar($this->template_path, $this->template_name);
             return ob_get_clean();
         }
 
