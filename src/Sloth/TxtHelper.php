@@ -15,6 +15,11 @@ class Sloth_TxtHelper
         return $valor;
     }
     
+    public function formataDinheiro($valor)
+    {
+        return 'R$ ' . number_format($valor, 2, ',', '.');
+    }
+    
     public static function formataConvenio($numero, $loop, $insert)
     {
         while(strlen($numero)<$loop){

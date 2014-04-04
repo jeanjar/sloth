@@ -2,7 +2,6 @@
 
 class Sloth_Retorno_CNAB400 extends Sloth_Retorno
 {
-
     public $tamanho_permitido_linha;
 
     public $mapa_identificadores = array();
