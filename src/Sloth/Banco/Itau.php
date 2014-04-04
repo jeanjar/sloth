@@ -12,5 +12,4 @@ class Sloth_Banco_Itau extends Sloth_Banco
         $this->banco_codigo = 341;
         $this->numero_moeda = 9;
     }
-
 }
