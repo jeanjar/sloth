@@ -15,6 +15,11 @@ class Sloth_TxtHelper
         return $valor;
     }
     
+    public function formataDinheiro($valor)
+    {
+        return 'R$ ' . number_format($valor, 2, ',', '.');
+    }
+    
     public static function formataConvenio($numero, $loop, $insert)
     {
         while(strlen($numero)<$loop){
@@ -37,7 +42,18 @@ class Sloth_TxtHelper
          //formata a data, a partir do padrão americano, para o padrão DD/MM/AAAA
          return date("d/m/Y", strtotime($data));        
     }
-
+    
+    public function formataHora($hora)
+    {
+        if( $hora == "000000" )
+            return "";
+    
+        if( trim($hora) == "" )
+            return "";
+    
+        return date("H:i:s", strtotime($hora));
+    }
+    
     public static function toraLinha($linha, $mapa)
     {
         $mapaFormatado = array();

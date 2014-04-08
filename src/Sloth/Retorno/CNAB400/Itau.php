@@ -2,7 +2,6 @@
 
 class Sloth_Retorno_CNAB400_Itau extends Sloth_Retorno_CNAB400
 {
-
     public $tamanho_permitido_linha;
     
     public static $codigo_ocorrencia_map = [
@@ -225,5 +224,4 @@ class Sloth_Retorno_CNAB400_Itau extends Sloth_Retorno_CNAB400
     {
         parent::processar();
     }
-
 }
