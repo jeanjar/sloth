@@ -1,1 +1,4 @@
 /vendor/
+.kde4
+sloth.kdev4
+.directory

@@ -28,10 +28,19 @@ class Sloth_Boleto
     {
     }
 
-    public function renderizar()
+    public function renderizar($template = null, $arquivo = null)
     {
+    	if(!$arquivo)
+    	{
+    		$arquivo = $this->template . '.phtml';
+    	}
+    	if(!$template)
+    	{
+    		$template = 'Boleto/templates/';
+    	}
+    	//var_dump($template . $arquivo);die;
         ob_start();
-        include('Boleto/templates/' . $this->template . '.phtml');
+        	include($template . $arquivo);
         echo ob_get_clean();
     }
 
