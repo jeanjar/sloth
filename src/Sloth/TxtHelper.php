@@ -38,7 +38,7 @@ class Sloth_TxtHelper
             $valor_formatado = '';
             if(in_array('posicao', array_keys($valor)))
             {
-                $valor_formatado = trim(substr($linha, $valor['posicao'][0], $valor['posicao'][1]));
+                $valor_formatado = substr($linha, $valor['posicao'][0], $valor['posicao'][1]);
             }
 
             if($valor_formatado && in_array('formatter', array_keys($valor)))

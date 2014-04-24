@@ -66,11 +66,12 @@ class Sloth_Retorno_CNAB400_Itau extends Sloth_Retorno_CNAB400
             'tipo_operacao' => ['posicao' => [2, 1]],
             'tipo_operacao_desc' => ['posicao' => [3, 7]],
             'tipo_servico' => ['posicao' => [10, 2]],
-            'complemento' => ['posicao' => [20, 7]],
+            'literal_servico' => ['posicao' => [12, 15]],
             'agencia_beneficiario' => ['posicao' => [27, 4]],
             'dv_agencia_beneficiario' => ['posicao' => [31, 2]],
             'conta_beneficiario' => ['posicao' => [33, 5]],
             'dv_conta_beneficiario' => ['posicao' => [38, 1]],
+            'brancos_1' => ['posicao' => [39, 8]],
             'nome_beneficiario' => ['posicao' => [47, 30]],
             'codigo_banco' => ['posicao' => [77, 3]],
             'banco' => ['posicao' => [80, 15]],
@@ -84,7 +85,7 @@ class Sloth_Retorno_CNAB400_Itau extends Sloth_Retorno_CNAB400
         );
 
         $mapaFormatado = Sloth_TxtHelper::toraLinha($linha, $mapaHeader);
-
+        
         return $mapaFormatado;
     }
 
@@ -105,11 +106,13 @@ class Sloth_Retorno_CNAB400_Itau extends Sloth_Retorno_CNAB400
             'carteira' => ['posicao' => [83, 3]],
             'nosso_numero_nota' => ['posicao' => [86, 8]],
             'dac_nosso_numero' => ['posicao' => [94, 1]],
+            'brancos_2' => ['posicao' => [95, 13]],
             'carteira_codigo' => ['posicao' => [108, 1]],
             'codigo_ocorrencia' => ['posicao' => [109, 2]],
             'data_ocorrencia' => ['posicao' => [111, 6], 'formatter' => ['Sloth_TxtHelper', 'formataData']],
             'numero_documento' => ['posicao' => [117, 10]],
             'nosso_numero_confirmacao' => ['posicao' => [127, 8]],
+            'brancos_3' => ['posicao' => [135, 12]],
             'vencimento' => ['posicao' => [147, 6], 'formatter' => ['Sloth_TxtHelper', 'formataData']],
             'valor_titulo' => ['posicao' => [153, 13], 'formatter' => ['Sloth_TxtHelper', 'formataNumero']],
             'banco_codigo' => ['posicao' => [166, 3]],
@@ -117,6 +120,7 @@ class Sloth_Retorno_CNAB400_Itau extends Sloth_Retorno_CNAB400
             'agencia_cobradora_dac' => ['posicao' => [173, 1]],
             'especie' => ['posicao' => [174, 2]],
             'tarifa_cobranca' => ['posicao' => [176, 13], 'formatter' => ['Sloth_TxtHelper', 'formataNumero']],
+            'brancos_4' => ['posicao' => [189, 26]],
             'valor_iof' => ['posicao' => [215, 13], 'formatter' => ['Sloth_TxtHelper', 'formataNumero']],
             'valor_abatimento' => ['posicao' => [228, 13], 'formatter' => ['Sloth_TxtHelper', 'formataNumero']],
             'descontos' => ['posicao' => [241, 13], 'formatter' => ['Sloth_TxtHelper', 'formataNumero']],
@@ -124,11 +128,15 @@ class Sloth_Retorno_CNAB400_Itau extends Sloth_Retorno_CNAB400
             'juros_mora' => ['posicao' => [267, 13], 'formatter' => ['Sloth_TxtHelper', 'formataNumero']],
             'outros_creditos' => ['posicao' => [280, 13], 'formatter' => ['Sloth_TxtHelper', 'formataNumero']],
             'boleto_dda' => ['posicao' => [293, 1]],
+            'brancos_5' => ['posicao' => [294, 2]],
             'data_credito' => ['posicao' => [296, 6], 'formatter' => ['Sloth_TxtHelper', 'formataData']],
             'instrucao_cancelada' => ['posicao' => [302, 4]],
+            'brancos_6' => ['posicao' => [306, 6]],
             'zeros' => ['posicao' => [312, 13]],
             'nome_pagador' => ['posicao' => [325, 30]],
+            'brancos_7' => ['posicao' => [355, 23]],
             'mensagem_info' => ['posicao' => [378, 8]],
+            'brancos_8' => ['posicao' => [386, 7]],
             'codigo_liquidacao' => ['posicao' => [393, 2]],
             'numero_sequencial' => ['posicao' => [395, 6]],
         );
@@ -181,18 +189,22 @@ class Sloth_Retorno_CNAB400_Itau extends Sloth_Retorno_CNAB400
             'retorno' => ['posicao' => [2, 1]],
             'tipo_registro' => ['posicao' => [3, 2]],
             'codigo_banco' => ['posicao' => [5, 3]],
+            'brancos' => ['posicao' => [8, 10]],
             'cobranca_simples_quantidade_titulos' => ['posicao' => [18, 8]],
             'cobranca_simples_valor_total' => ['posicao' => [26, 14], 'formatter' => ['Sloth_TxtHelper', 'formataNumero']],
             'cobranca_simples_numero_aviso' => ['posicao' => [40, 8]],
+            'brancos_2' => ['posicao' => [48, 10]],
             'cobranca_vinculada_quantidade_titulos' => ['posicao' => [58, 8]],
             'cobranca_vinculada_valor_total' => ['posicao' => [66, 14], 'formatter' => ['Sloth_TxtHelper', 'formataNumero']],
             'cobranca_vinculada_numero_aviso' => ['posicao' => [80, 8]],
+            'brancos_3' => ['posicao' => [88, 90]],
             'cobranca_caucionada_quantidade_titulos' => ['posicao' => [178, 8]],
             'cobranca_caucionada_valor_total' => ['posicao' => [186, 14], 'formatter' => ['Sloth_TxtHelper', 'formataNumero']],
             'cobranca_caucionada_numero_aviso' => ['posicao' => [200, 8]],
             'controle_arquivo' => ['posicao' => [208, 5]],
             'quantidade_detalhes' => ['posicao' => [213, 8]],
             'valor_total_titulos' => ['posicao' => [221, 14], 'formatter' => ['Sloth_TxtHelper', 'formataNumero']],
+            'brancos_4' => ['posicao' => [235, 160]],
             'sequencial' => ['posicao' => [395, 6]],
         );
 

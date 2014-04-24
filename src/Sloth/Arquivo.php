@@ -7,6 +7,7 @@ abstract class Sloth_Arquivo
      * @property string $nomeArquivo Nome do arquivo de remessa que será gerado ao fim do processamento
      */
     protected $nomeArquivo = '';
+   // public $trim_values = true;
 
     public function defineNomeArquivo($arquivo)
     {
