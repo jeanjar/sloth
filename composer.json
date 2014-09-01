@@ -6,6 +6,10 @@
         {
             "name": "Stefan Yohansson",
             "email": "sy.fen0@gmail.com"
+        },
+        {
+            "name": "Jean Jar Pereira de Araújo",
+            "email": "jeanjpa@gmail.com"
         }
     ],
     "minimum-stability": "dev",

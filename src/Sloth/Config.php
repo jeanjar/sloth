@@ -24,10 +24,8 @@ class Sloth_Config
             {
                 die('key ' . $r . ' is required');
             }
+            self::$$r = $args[$r];
         }
-
-        self::$assets = $args['assets'];
-        self::$rel_path = $args['rel_path'];
     }
 
 }
