@@ -45,11 +45,11 @@ class Sloth_Retorno_CNAB400_Brasil extends Sloth_Retorno_CNAB400
         
         $this->identificador_trailer = 9;
         
-        $this->identificador_detalhe = 1;
+        $this->identificador_detalhe = 7;
         
-        $banco = new Sloth_Banco_Brasil([]);
+        $banco = new Sloth_Banco_Brasil(['assets' => '', 'rel_path' => '']);
         
-        $this->banco = $banco->banco_codigo;
+        $this->banco = $banco;
 
         $this->mapa_identificadores = array(
             $this->identificador_header => [$this, 'processarHeader'],
@@ -156,8 +156,18 @@ class Sloth_Retorno_CNAB400_Brasil extends Sloth_Retorno_CNAB400
 
         $mapaFormatado = Sloth_TxtHelper::toraLinha($linha, $mapaDetalhe);
         
-        $mapaFormatado = $this->transcreverMensagemInfo($mapaFormatado);
+        $mapaFormatado = $this->nossoNumeroSemConvenio($mapaFormatado);
+//        $mapaFormatado = $this->transcreverMensagemInfo($mapaFormatado);
 
+        return $mapaFormatado;
+    }
+    
+    private function nossoNumeroSemConvenio($mapaFormatado)
+    {
+        $mapaFormatado['nosso_numero_convenio'] = $mapaFormatado['nosso_numero'];
+        
+        $mapaFormatado['nosso_numero'] = str_replace($this->banco->convenio, '', $mapaFormatado['nosso_numero']);
+        
         return $mapaFormatado;
     }
     
