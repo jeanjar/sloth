@@ -45,6 +45,10 @@ class Sloth_Retorno_CNAB400_Itau extends Sloth_Retorno_CNAB400
         $this->identificador_trailer = 9;
         
         $this->identificador_detalhe = 1;
+        
+        $banco = new Sloth_Banco_Itau(['assets' => '', 'rel_path' => '']);
+        
+        $this->banco = $banco;
 
         $this->mapa_identificadores = array(
             $this->identificador_header => [$this, 'processarHeader'],
