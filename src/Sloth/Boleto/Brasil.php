@@ -13,7 +13,8 @@ class Sloth_Boleto_Brasil extends Sloth_Boleto
         'especie_doc',
         'numero_documento',
         'contrato',
-        'pagador_identificador']);
+        'pagador_identificador',
+        'carteira']);
     }
 
     public function configurarBoleto($dadosBoleto = array())
@@ -31,6 +32,12 @@ class Sloth_Boleto_Brasil extends Sloth_Boleto
         if(empty($this->dadosBoleto))
         {
             return false;
+        }
+
+        if(!isset($this->dadosBoleto['numero_moeda']))
+        {
+            $banco = new Sloth_Banco_Brasil(['assets' => '', 'rel_path' => '']);
+            $this->dadosBoleto['numero_moeda'] = $banco->numero_moeda;
         }
 
         $this->dadosBoleto['convenio'] = $this->convenio;
@@ -66,7 +73,7 @@ class Sloth_Boleto_Brasil extends Sloth_Boleto
             // Nosso número de até 9 dígitos
             $nossonumero = Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto["nosso_numero"],9,0);
             $this->dadosBoleto['nosso_numero_acolchoado'] = $nossonumero;
-            $nossonumero = $convenio . $nossonumero ."-". modulo_11($convenio.$nossonumero);
+            $nossonumero = $convenio . $nossonumero ."-". $this->modulo11($convenio.$nossonumero);
 
         }
 
