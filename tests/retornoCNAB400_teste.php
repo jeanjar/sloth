@@ -9,8 +9,7 @@ function salvarNoBanco($array_de_fora)
 
 }
 
-$file = 'files/retorno_cnab240conv6.ret';
+$file = 'files/RETORNOCEF050315.ret';
 $evento = 'salvarNoBanco';
-$retorno = new Sloth_Retorno_CNAB240($file, $evento);
+$retorno = new Sloth_Retorno_CNAB400_CEF($file, $evento);
 $retorno->processar();
-
