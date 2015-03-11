@@ -13,4 +13,15 @@ class Fixtures {
 
     }
 
+    public static function boleto_itau($assert = true)
+    {
+        if($assert)
+        {
+            return FixturesData::dados_itau_right();
+        } else {
+            return FixturesData::dados_itau_wrong();
+        }
+
+    }
+
 }

@@ -19,4 +19,21 @@ class BoletoTest extends PHPUnit_Framework_TestCase
 
         $this->assertFalse(count($chavesRequeridas) <= 0);
     }
+
+    public function test_boletoitau_assert_true()
+    {
+        $boleto = new Sloth_Boleto_Itau(['assets' => '', 'rel' => '']);
+        $chavesRequeridas = $boleto->configurarBoleto(Fixtures::boleto_itau(true));
+
+        $this->assertTrue(count($chavesRequeridas) == 0);
+    }
+
+    public function test_boletoitau_assert_false()
+    {
+        $boleto = new Sloth_Boleto_Itau(['assets' => '', 'rel' => '']);
+        $chavesRequeridas = $boleto->configurarBoleto(Fixtures::boleto_itau(false));
+
+        $this->assertFalse(count($chavesRequeridas) <= 0);
+    }
+
 }
