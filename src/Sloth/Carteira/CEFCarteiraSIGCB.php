@@ -7,7 +7,7 @@ class Sloth_Carteira_CEFCarteiraSIGCB extends Sloth_Banco_CEF
     {
         parent::__construct($args);
 
-        $this->indice = 18;
+        $this->indice = 'SIGCB';
         $this->descricao = 'Cobrança Simples';
         $this->permite_retorno = true;
         $this->permite_remessa = false;
