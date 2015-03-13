@@ -64,6 +64,16 @@ class Sloth_Boleto_Brasil extends Sloth_Boleto
     {
         $formatacao_convenio = strlen($this->convenio);
 
+        if($this->dadosBoleto["carteira"] == 18)
+        {
+            $nossonumero = $this->formatarNossoNumeroCarteira18($formatacao_convenio);
+        }
+
+        $this->dadosBoleto['nosso_numero_formatado'] = $nossonumero;
+    }
+
+    private function formatarNossoNumeroCarteira18($formatacao_convenio)
+    {
         // Carteira 18 com Convênio de 8 dígitos
         if ($formatacao_convenio == 8)
         {
@@ -88,8 +98,7 @@ class Sloth_Boleto_Brasil extends Sloth_Boleto
 
         }
 
-        $this->dadosBoleto['nosso_numero_formatado'] = $nossonumero;
-
+        return $nossonumero;
     }
 
     private function montarLinhaDigitavel()
