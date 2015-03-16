@@ -24,4 +24,15 @@ class Fixtures {
 
     }
 
+    public static function boleto_cef($assert = true)
+    {
+        if($assert)
+        {
+            return FixturesData::dados_cef_right();
+        } else {
+            return FixturesData::dados_itau_wrong();
+        }
+
+    }
+
 }

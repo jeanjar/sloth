@@ -52,6 +52,12 @@ class Sloth_Boleto_CEF extends Sloth_Boleto
         $this->dadosBoleto['zeros_livre'] = '000000';
 
         $this->dadosBoleto['valor_boleto_acolchoado'] = Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto['valor_boleto'], 10, 0);
+
+        if(!isset($this->dadosBoleto['valor_unitario']))
+        {
+            $this->dadosBoleto['valor_unitario'] = $this->dadosBoleto['valor_boleto_acolchoado'];
+        }
+
         $this->dadosBoleto['nosso_numero_acolchoado'] = Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto['nosso_numero'], 17, 0);
         $this->dadosBoleto['beneficiario_agencia_acolchoado'] = Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto['beneficiario_agencia'], 4, 0);
         $this->dadosBoleto['beneficiario_conta_acolchoado'] = Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto['beneficiario_conta'], 5, 0);
