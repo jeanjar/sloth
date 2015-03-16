@@ -81,7 +81,7 @@ class FixturesData {
     public static function dados_cef_right()
     {
         return array(
-            "nosso_numero" => "1",
+            "nosso_numero" => "00020004000000019",
             "data_vencimento" => "19/03/2015",
             "valor_boleto" => "190,00",
             "data_documento" => "13/01/2015",
@@ -105,7 +105,7 @@ class FixturesData {
             "especie_doc" => "",
             "numero_documento" => "1",
             "contrato" => "32654",
-            "banco_codigo" => "141",
+            "banco_codigo" => "104",
             "nosso_numero_constante_1" => "2",
             "nosso_numero_constante_2" => "3",
             "data_processamento" => "",
