@@ -24,16 +24,16 @@ de Impressão</DIV></TD></TR><TR><TD valign=top class=cp><DIV ALIGN="left">
 <li>Caso tenha problemas ao imprimir, copie a seqüencia numérica abaixo e pague no caixa eletrônico ou no internet banking:<br><br>
 <span class="ld2">
 &nbsp;&nbsp;&nbsp;&nbsp;Linha Digitável: &nbsp;<?php echo $this->dadosBoleto["linha_digitavel"]?><br>
-&nbsp;&nbsp;&nbsp;&nbsp;Valor: &nbsp;&nbsp;R$ <?php echo $this->dadosBoleto["valor_boleto"]?><br>
+&nbsp;&nbsp;&nbsp;&nbsp;Valor: &nbsp;&nbsp;R$ <?php echo $this->dadosBoleto["valor_boleto_acolchoado"]?><br>
 </span>
 </DIV></td></tr></table><br><table cellspacing=0 cellpadding=0 width=666 border=0><TBODY><TR><TD class=ct width=666><img height=1 src=imagens/6.png width=665 border=0></TD></TR><TR><TD class=ct width=666><div align=right><b class=cp>Recibo
 do Sacado</b></div></TD></tr></tbody></table><table width=666 cellspacing=5 cellpadding=0 border=0><tr><td width=41></TD></tr></table>
 <table width=666 cellspacing=5 cellpadding=0 border=0 align=Default>
 <tr>
 <td width=41><IMG SRC="imagens/logo_empresa.png"></td>
-<td class=ti width=455><?php echo $this->dadosBoleto["identificacao"]; ?> <?php echo isset($this->dadosBoleto["cpf_cnpj"]) ? "<br>".$this->dadosBoleto["cpf_cnpj"] : '' ?><br>
-<?php echo $this->dadosBoleto["endereco"]; ?><br>
-<?php echo $this->dadosBoleto["cidade_uf"]; ?><br>
+<td class=ti width=455><?php echo $this->dadosBoleto["identificacao"]; ?> <?php echo isset($this->dadosBoleto["beneficiario_cpf_cnpj"]) ? "<br>".$this->dadosBoleto["beneficiario_cpf_cnpj"] : '' ?><br>
+<?php echo implode(', ', $this->dadosBoleto["beneficiario_endereco"]); ?><br>
+<?php echo $this->dadosBoleto["beneficiario_cidade_estado"]; ?><br>
 </td>
 <td align=RIGHT width=150 class=ti>&nbsp;</td>
 </tr>
@@ -42,17 +42,17 @@ do Sacado</b></div></TD></tr></tbody></table><table width=666 cellspacing=5 cell
 <span class="campo"><IMG
 src="imagens/logocaixa.jpg" width="150" height="40"
 border=0></span></td>
-<td width=3 valign=bottom><img height=22 src=imagens/3.png width=2 border=0></td><td class=cpt width=58 valign=bottom><div align=center><font class=bc><?php echo $this->dadosBoleto["codigo_banco_com_dv"]?></font></div></td><td width=3 valign=bottom><img height=22 src=imagens/3.png width=2 border=0></td><td class=ld align=right width=453 valign=bottom><span class=ld>
+<td width=3 valign=bottom><img height=22 src=imagens/3.png width=2 border=0></td><td class=cpt width=58 valign=bottom><div align=center><font class=bc><?php echo $this->dadosBoleto["banco_codigo_dv"]?></font></div></td><td width=3 valign=bottom><img height=22 src=imagens/3.png width=2 border=0></td><td class=ld align=right width=453 valign=bottom><span class=ld>
 <span class="campotitulo">
 <?php echo $this->dadosBoleto["linha_digitavel"]?>
 </span></span></td>
-</tr><tbody><tr><td colspan=5><img height=2 src=imagens/2.png width=666 border=0></td></tr></tbody></table><table cellspacing=0 cellpadding=0 border=0><tbody><tr><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=268 height=13>Cedente</td><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=156 height=13>Agência/Código
-do Cedente</td><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=34 height=13>Espécie</td><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=53 height=13>Quantidade</td><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=120 height=13>Nosso
+</tr><tbody><tr><td colspan=5><img height=2 src=imagens/2.png width=666 border=0></td></tr></tbody></table><table cellspacing=0 cellpadding=0 border=0><tbody><tr><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=268 height=13>beneficiario</td><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=156 height=13>Agência/Código
+do beneficiario</td><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=34 height=13>Espécie</td><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=53 height=13>Quantidade</td><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=120 height=13>Nosso
 número</td></tr><tr><td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top width=268 height=12>
-<span class="campo"><?php echo $this->dadosBoleto["cedente"]; ?></span></td>
+<span class="campo"><?php echo $this->dadosBoleto["beneficiario"]; ?></span></td>
 <td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top width=156 height=12>
 <span class="campo">
-<?php echo $this->dadosBoleto["agencia_codigo"]?>
+<?php echo $this->dadosBoleto["beneficiario_agencia_acolchoado"] ?>
 </span></td>
 <td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top width=34 height=12><span class="campo">
 <?php echo $this->dadosBoleto["especie"]?>
@@ -64,7 +64,7 @@ número</td></tr><tr><td class=cp valign=top width=7 height=12><img height=12 sr
 </td>
 <td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top align=right width=120 height=12>
 <span class="campo">
-<?php echo $this->dadosBoleto["nosso_numero"]?>
+<?php echo $this->dadosBoleto["nosso_numero_acolchoado"]?>
 </span></td>
 </tr><tr><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=268 height=1><img height=1 src=imagens/2.png width=268 border=0></td><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=156 height=1><img height=1 src=imagens/2.png width=156 border=0></td><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=34 height=1><img height=1 src=imagens/2.png width=34 border=0></td><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=53 height=1><img height=1 src=imagens/2.png width=53 border=0></td><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=120 height=1><img height=1 src=imagens/2.png width=120 border=0></td></tr></tbody></table><table cellspacing=0 cellpadding=0 border=0><tbody><tr><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top colspan=3 height=13>Número
 do documento</td><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=132 height=13>CPF/CNPJ</td><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=134 height=13>Vencimento</td><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=180 height=13>Valor
@@ -74,7 +74,7 @@ documento</td></tr><tr><td class=cp valign=top width=7 height=12><img height=12 
 </span></td>
 <td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top width=132 height=12>
 <span class="campo">
-<?php echo $this->dadosBoleto["cpf_cnpj"]?>
+<?php echo $this->dadosBoleto["beneficiario_cpf_cnpj"]?>
 </span></td>
 <td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top width=134 height=12>
 <span class="campo">
@@ -82,7 +82,7 @@ documento</td></tr><tr><td class=cp valign=top width=7 height=12><img height=12 
 </span></td>
 <td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top align=right width=180 height=12>
 <span class="campo">
-<?php echo $this->dadosBoleto["valor_boleto"]?>
+<?php echo $this->dadosBoleto["valor_boleto_acolchoado"]?>
 </span></td>
 </tr><tr><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=113 height=1><img height=1 src=imagens/2.png width=113 border=0></td><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=72 height=1><img height=1 src=imagens/2.png width=72 border=0></td><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=132 height=1><img height=1 src=imagens/2.png width=132 border=0></td><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=134 height=1><img height=1 src=imagens/2.png width=134 border=0></td><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=180 height=1><img height=1 src=imagens/2.png width=180 border=0></td></tr></tbody></table><table cellspacing=0 cellpadding=0 border=0><tbody><tr><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=113 height=13>(-)
 Desconto / Abatimentos</td><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=112 height=13>(-)
@@ -91,14 +91,14 @@ Mora / Multa</td><td class=ct valign=top width=7 height=13><img height=13 src=im
 Outros acréscimos</td><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=180 height=13>(=)
 Valor cobrado</td></tr><tr><td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top align=right width=113 height=12></td><td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top align=right width=112 height=12></td><td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top align=right width=113 height=12></td><td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top align=right width=113 height=12></td><td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top align=right width=180 height=12></td></tr><tr><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=113 height=1><img height=1 src=imagens/2.png width=113 border=0></td><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=112 height=1><img height=1 src=imagens/2.png width=112 border=0></td><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=113 height=1><img height=1 src=imagens/2.png width=113 border=0></td><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=113 height=1><img height=1 src=imagens/2.png width=113 border=0></td><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=180 height=1><img height=1 src=imagens/2.png width=180 border=0></td></tr></tbody></table><table cellspacing=0 cellpadding=0 border=0><tbody><tr><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=659 height=13>Sacado</td></tr><tr><td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top width=659 height=12>
 <span class="campo">
-<?php echo $this->dadosBoleto["sacado"]?>
+<?php echo $this->dadosBoleto["pagador"]?>
 </span></td>
 </tr><tr><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=659 height=1><img height=1 src=imagens/2.png width=659 border=0></td></tr></tbody></table><table cellspacing=0 cellpadding=0 border=0><tbody><tr><td class=ct width=7 height=12></td><td class=ct width=564 >Demonstrativo</td><td class=ct width=7 height=12></td><td class=ct width=88 >Autenticação
 mecânica</td></tr><tr><td width=7 ></td><td class=cp width=564 >
 <span class="campo">
-<?php echo $this->dadosBoleto["demonstrativo1"]?><br>
-<?php echo $this->dadosBoleto["demonstrativo2"]?><br>
-<?php echo $this->dadosBoleto["demonstrativo3"]?><br>
+    <?php foreach($this->dadosBoleto['pagador_demonstrativo'] as $demonstrativo): ?>
+        <?php echo $demonstrativo; ?><br/>
+    <?php endforeach; ?>
 </span>
 </td><td width=7 ></td><td width=88 ></td></tr></tbody></table><table cellspacing=0 cellpadding=0 width=666 border=0><tbody><tr><td width=7></td><td width=500 class=cp>
 <br><br><br>
@@ -107,7 +107,7 @@ mecânica</td></tr><tr><td width=7 ></td><td class=cp width=564 >
 <span class="campo"><IMG
 src="imagens/logocaixa.jpg" width="150" height="40"
 border=0></span></td>
-<td width=3 valign=bottom><img height=22 src=imagens/3.png width=2 border=0></td><td class=cpt width=58 valign=bottom><div align=center><font class=bc><?php echo $this->dadosBoleto["codigo_banco_com_dv"]?></font></div></td><td width=3 valign=bottom><img height=22 src=imagens/3.png width=2 border=0></td><td class=ld align=right width=453 valign=bottom><span class=ld>
+<td width=3 valign=bottom><img height=22 src=imagens/3.png width=2 border=0></td><td class=cpt width=58 valign=bottom><div align=center><font class=bc><?php echo $this->dadosBoleto["banco_codigo_dv"]?></font></div></td><td width=3 valign=bottom><img height=22 src=imagens/3.png width=2 border=0></td><td class=ld align=right width=453 valign=bottom><span class=ld>
 <span class="campotitulo">
 <?php echo $this->dadosBoleto["linha_digitavel"]?>
 </span></span></td>
@@ -117,14 +117,14 @@ em qualquer Banco até o vencimento</td><td class=cp valign=top width=7 height=1
 <span class="campo">
 <?php echo ($data_venc != "") ? $this->dadosBoleto["data_vencimento"] : "Contra Apresentação" ?>
 </span></td>
-</tr><tr><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=472 height=1><img height=1 src=imagens/2.png width=472 border=0></td><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=180 height=1><img height=1 src=imagens/2.png width=180 border=0></td></tr></tbody></table><table cellspacing=0 cellpadding=0 border=0><tbody><tr><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=472 height=13>Cedente</td><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=180 height=13>Agência/Código
-cedente</td></tr><tr><td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top width=472 height=12>
+</tr><tr><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=472 height=1><img height=1 src=imagens/2.png width=472 border=0></td><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=180 height=1><img height=1 src=imagens/2.png width=180 border=0></td></tr></tbody></table><table cellspacing=0 cellpadding=0 border=0><tbody><tr><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=472 height=13>beneficiario</td><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=180 height=13>Agência/Código
+beneficiario</td></tr><tr><td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top width=472 height=12>
 <span class="campo">
-<?php echo $this->dadosBoleto["cedente"]?>
+<?php echo $this->dadosBoleto["beneficiario"]?>
 </span></td>
 <td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top align=right width=180 height=12>
 <span class="campo">
-<?php echo $this->dadosBoleto["agencia_codigo"]?>
+<?php echo $this->dadosBoleto["beneficiario_agencia_acolchoado"] ?>
 </span></td>
 </tr><tr><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=472 height=1><img height=1 src=imagens/2.png width=472 border=0></td><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=180 height=1><img height=1 src=imagens/2.png width=180 border=0></td></tr></tbody></table><table cellspacing=0 cellpadding=0 border=0><tbody><tr><td class=ct valign=top width=7 height=13>
 <img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=113 height=13>Data
@@ -151,7 +151,7 @@ número</td></tr><tr><td class=cp valign=top width=7 height=12><img height=12 sr
 <?php echo $this->dadosBoleto["data_processamento"]?>
 </span></div></td><td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top align=right width=180 height=12>
 <span class="campo">
-<?php echo $this->dadosBoleto["nosso_numero"]?>
+<?php echo $this->dadosBoleto["nosso_numero_acolchoado"]?>
 </span></td>
 </tr><tr><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=113 height=1><img height=1 src=imagens/2.png width=113 border=0></td><td valign=top width=7 height=1>
 <img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=133 height=1><img height=1 src=imagens/2.png width=133 border=0></td><td valign=top width=7 height=1>
@@ -169,21 +169,21 @@ Valor Documento</td><td class=ct valign=top width=7 height=13><img height=13 src
 Valor documento</td></tr><tr> <td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td valign=top class=cp height=12 COLSPAN="3"><div align=left>
 </div></td><td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top width=83>
 <div align=left> <span class="campo">
-<?php echo $this->dadosBoleto["carteira"]?>
+<?php echo $this->dadosBoleto["carteira"] ?>
 </span></div></td><td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top width=43><div align=left><span class="campo">
-<?php echo $this->dadosBoleto["especie"]?>
+<?php echo $this->dadosBoleto["especie"] ?>
 </span>
 </div></td><td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top width=103><span class="campo">
-<?php echo $this->dadosBoleto["quantidade"]?>
+<?php echo $this->dadosBoleto["quantidade"] ?>
 </span>
 </td>
 <td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top width=102>
 <span class="campo">
-<?php echo $this->dadosBoleto["valor_unitario"]?>
+<?php echo $this->dadosBoleto["valor_unitario"] ?>
 </span></td>
 <td class=cp valign=top width=7 height=12> <img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top align=right width=180 height=12>
 <span class="campo">
-<?php echo $this->dadosBoleto["valor_boleto"]?>
+<?php echo $this->dadosBoleto["valor_boleto_acolchoado"] ?>
 </span></td>
 </tr><tr><td valign=top width=7 height=1> <img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=75 border=0></td><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=31 height=1><img height=1 src=imagens/2.png width=31 border=0></td><td valign=top width=7 height=1>
 <img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=83 height=1><img height=1 src=imagens/2.png width=83 border=0></td><td valign=top width=7 height=1>
@@ -195,11 +195,10 @@ Valor documento</td></tr><tr> <td class=cp valign=top width=7 height=12><img hei
 <tr> <td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td></tr><tr>
 <td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td></tr><tr>
 <td valign=top width=7 height=1><img height=1 src=imagens/2.png width=1 border=0></td></tr></tbody></table></td><td valign=top width=468 rowspan=5><font class=ct>Instruções
-(Texto de responsabilidade do cedente)</font><br><br><span class=cp> <FONT class=campo>
-<?php echo $this->dadosBoleto["instrucoes1"]; ?><br>
-<?php echo $this->dadosBoleto["instrucoes2"]; ?><br>
-<?php echo $this->dadosBoleto["instrucoes3"]; ?><br>
-<?php echo $this->dadosBoleto["instrucoes4"]; ?></FONT><br><br>
+(Texto de responsabilidade do beneficiario)</font><br><br><span class=cp> <FONT class=campo>
+    <?php foreach($this->dadosBoleto['pagador_instrucoes'] as $instrucoes): ?>
+        <b><?php echo $instrucoes; ?></b><br/>
+    <?php endforeach; ?></FONT><br><br>
 </span></td>
 <td align=right width=188><table cellspacing=0 cellpadding=0 border=0><tbody><tr><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=180 height=13>(-)
 Desconto / Abatimentos</td></tr><tr> <td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top align=right width=180 height=12></td></tr><tr>
@@ -221,14 +220,14 @@ Valor cobrado</td></tr><tr><td class=cp valign=top width=7 height=12><img height
 <?php echo $this->dadosBoleto["sacado"]?>
 </span>
 </td>
-</tr></tbody></table><table cellspacing=0 cellpadding=0 border=0><tbody><tr><td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top width=659 height=12><span class="campo">
-<?php echo $this->dadosBoleto["endereco1"]?>
-</span>
-</td>
-</tr></tbody></table><table cellspacing=0 cellpadding=0 border=0><tbody><tr><td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=cp valign=top width=472 height=13>
-<span class="campo">
-<?php echo $this->dadosBoleto["endereco2"]?>
-</span></td>
+</tr></tbody></table>
+<?php foreach($this->dadosBoleto["pagador_endereco"] as $endereco): ?>
+    <table cellspacing=0 cellpadding=0 border=0><tbody><tr><td class=cp valign=top width=7 height=12><img height=12 src=imagens/1.png width=1 border=0></td><td class=cp valign=top width=659 height=12><span class="campo">
+    <?php echo $endereco ?>
+    </span>
+    </td>
+    </tr></tbody></table>
+<?php endforeach; ?>
 <td class=ct valign=top width=7 height=13><img height=13 src=imagens/1.png width=1 border=0></td><td class=ct valign=top width=180 height=13>Cód.
 baixa</td></tr><tr><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=472 height=1><img height=1 src=imagens/2.png width=472 border=0></td><td valign=top width=7 height=1><img height=1 src=imagens/2.png width=7 border=0></td><td valign=top width=180 height=1><img height=1 src=imagens/2.png width=180 border=0></td></tr></tbody></table><TABLE cellSpacing=0 cellPadding=0 border=0 width=666><TBODY><TR><TD class=ct width=7 height=12></TD><TD class=ct width=409 >Sacador/Avalista</TD><TD class=ct width=250 ><div align=right>Autenticação
 mecânica - <b class=cp>Ficha de Compensação</b></div></TD></TR><TR><TD class=ct colspan=3 ></TD></tr></tbody></table><TABLE cellSpacing=0 cellPadding=0 width=666 border=0><TBODY><TR><TD vAlign=bottom align=left height=50><?php fbarcode($this->dadosBoleto["codigo_barras"]); ?>

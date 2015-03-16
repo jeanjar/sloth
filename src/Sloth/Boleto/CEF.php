@@ -8,12 +8,15 @@ class Sloth_Boleto_CEF extends Sloth_Boleto
     public function __construct()
     {
         parent::__construct();
-        $this->dadosBoletoRequeridos = array_merge($this->dadosBoletoRequeridos, ['especie',
-        'aceite',
-        'especie_doc',
-        'numero_documento',
-        'contrato',
-        'pagador_identificador']);
+        $this->dadosBoletoRequeridos = array_merge($this->dadosBoletoRequeridos, [
+            'especie',
+            'aceite',
+            'especie_doc',
+            'numero_documento',
+            'contrato',
+            'pagador_identificador',
+            'data_processamento',
+        ]);
     }
 
     public function configurarBoleto($dadosBoleto = array())
