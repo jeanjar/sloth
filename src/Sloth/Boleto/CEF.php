@@ -41,7 +41,7 @@ class Sloth_Boleto_CEF extends Sloth_Boleto
         $nosso_numero_split = array(
             'nosso_numero1' => ['posicao' => array(0, 3)],
             'nosso_numero2' => ['posicao' => array(4, 3)],
-            'nosso_numero3' => ['posicao' => array(5, 9)],
+            'nosso_numero3' => ['posicao' => array(8, 9)],
         );
 
         $this->dadosBoleto['nosso_numero_tored'] = Sloth_TxtHelper::toraLinha($this->dadosBoleto['nosso_numero'], $nosso_numero_split);
