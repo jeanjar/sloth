@@ -2,37 +2,17 @@
 
 class Fixtures {
 
-    public static function boleto_bb($assert = true)
+    public static function get_boleto_data($banco = null, $boolean)
     {
-        if($assert)
+        $data = FixturesData::get_default_data();
+        $getbanco = 'get_'.$banco;
+
+        if(method_exists('FixturesData', $getbanco))
         {
-            return FixturesData::dados_bb_right();
-        } else {
-            return FixturesData::dados_bb_wrong();
+            $data = array_merge($data, FixturesData::$getbanco());
         }
 
-    }
-
-    public static function boleto_itau($assert = true)
-    {
-        if($assert)
-        {
-            return FixturesData::dados_itau_right();
-        } else {
-            return FixturesData::dados_itau_wrong();
-        }
-
-    }
-
-    public static function boleto_cef($assert = true)
-    {
-        if($assert)
-        {
-            return FixturesData::dados_cef_right();
-        } else {
-            return FixturesData::dados_itau_wrong();
-        }
-
+        return $data;
     }
 
 }

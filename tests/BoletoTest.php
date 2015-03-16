@@ -2,47 +2,25 @@
 
 class BoletoTest extends PHPUnit_Framework_TestCase
 {
-    public function test_boletobb_assert_true()
+
+    public function test_boleto_true()
     {
-        $boleto = new Sloth_Carteira_BrasilCarteira18(['rel_path' => '', 'assets' => '']);
-        $boleto->convenio = '12345678';
-        $boletoHtml = $boleto->gerarBoleto(Fixtures::boleto_bb(true));
+        $banco = array(
+            'bb' => 'Sloth_Carteira_BrasilCarteira18',
+            'itau' => 'Sloth_Carteira_ItauCarteira104',
+            'cef' => 'Sloth_Carteira_CEFCarteiraSIGCB'
+        );
 
-        $this->assertTrue(is_string($boletoHtml));
-    }
+        foreach($banco as $key => $class)
+        {
+            $boleto = new $class(['rel_path' => '', 'assets' => '']);
+            $boleto->convenio = '12345678';
 
-    public function test_boletobb_assert_false()
-    {
-        $boleto = new Sloth_Carteira_BrasilCarteira18(['rel_path' => '', 'assets' => '']);
-        $boleto->convenio = '12345678';
-        $chavesRequeridas = $boleto->gerarBoleto(Fixtures::boleto_bb(false));
-
-        $this->assertFalse(count($chavesRequeridas) <= 0);
-    }
-
-    public function test_boletoitau_assert_true()
-    {
-        $boleto = new Sloth_Boleto_Itau(['assets' => '', 'rel' => '']);
-        $chavesRequeridas = $boleto->configurarBoleto(Fixtures::boleto_itau(true));
-
-        $this->assertTrue(count($chavesRequeridas) == 0);
-    }
-
-    public function test_boletoitau_assert_false()
-    {
-        $boleto = new Sloth_Boleto_Itau(['assets' => '', 'rel' => '']);
-        $chavesRequeridas = $boleto->configurarBoleto(Fixtures::boleto_itau(false));
-
-        $this->assertFalse(count($chavesRequeridas) <= 0);
-    }
-
-    public function test_boletocef_assert_true()
-    {
-        $boleto = new Sloth_Carteira_CEFCarteiraSIGCB(['rel_path' => '', 'assets' => '']);
-        $boleto->convenio = '12345678';
-        $boletoHtml = $boleto->gerarBoleto(Fixtures::boleto_cef(true));
-
-        $this->assertTrue(is_string($boletoHtml));
+            $fs_class = 'get_boleto_data';
+            $boletoHtml = $boleto->gerarBoleto(Fixtures::$fs_class($key, true));
+            
+            $this->assertTrue(is_string($boletoHtml));
+        }
     }
 
 }
