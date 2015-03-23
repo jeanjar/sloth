@@ -16,7 +16,7 @@ abstract class Sloth_Retorno extends Sloth_Arquivo
 
     public function processar()
     {
-        if (is_string($this->obterNomeArquivo()) {
+        if (is_string($this->obterNomeArquivo())) {
             $linhas = file($this->obterNomeArquivo());
         } else {
             $linhas = $this->obterNomeArquivo();
