@@ -228,7 +228,7 @@ class Sloth_Boleto_CEF extends Sloth_Boleto
 
             //corrigido
             if ($digito == 10) {
-                $digito = "X";
+                $digito = "0";
             }
 
 
