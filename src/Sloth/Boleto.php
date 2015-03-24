@@ -30,11 +30,11 @@ class Sloth_Boleto
 
     public function renderizar($template = null, $arquivo = null)
     {
-    	if($arquivo !== null)
+    	if($arquivo === null)
     	{
     		$arquivo = $this->template . '.phtml';
     	}
-    	if($template !== null)
+    	if($template === null)
     	{
     		$template = 'Boleto/templates/';
     	}
