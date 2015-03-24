@@ -11,7 +11,7 @@ Instalação
 você pode baixar manualmente o código e incluir no seu código ou usar o composer (**recomendo o uso do composer**):
 ``` json
 { 
-    require: {
+    "require": {
         "syohansson/sloth": "dev-master"
     }
 }
