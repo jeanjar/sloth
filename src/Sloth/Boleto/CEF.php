@@ -61,7 +61,7 @@ class Sloth_Boleto_CEF extends Sloth_Boleto
         $this->dadosBoleto['nosso_numero_acolchoado'] = Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto['nosso_numero'], 17, 0);
         $this->dadosBoleto['beneficiario_agencia_acolchoado'] = Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto['beneficiario_agencia'], 4, 0);
         $this->dadosBoleto['beneficiario_conta_acolchoado'] = Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto['beneficiario_conta'], 5, 0);
-        $this->dadosBoleto['beneficiario_conta_dv'] = $this->digitoVerificador($this->dadosBoleto['beneficiario_conta']);
+        $this->dadosBoleto['beneficiario_conta_dv'] = $this->dadosBoleto['beneficiario_dv_conta'];
 
         $this->dadosBoleto['campo_livre'] = $this->gerarCampoLivre();
         $this->dadosBoleto['campo_livre_dv'] = $this->digitoVerificador($this->dadosBoleto['campo_livre']);
@@ -79,14 +79,14 @@ class Sloth_Boleto_CEF extends Sloth_Boleto
 
     private function gerarCampoLivre()
     {
-        $campo_livre = $this->dadosBoleto['beneficiario_conta'] . $this->dadosBoleto['beneficiario_conta_dv'] . $this->dadosBoleto['nosso_numero_tored']['nosso_numero1'] . $this->dadosBoleto['nosso_numero_constante_1'] . $this->dadosBoleto['nosso_numero_tored']['nosso_numero2'] . $this->dadosBoleto['nosso_numero_constante_2'] . $this->dadosBoleto['nosso_numero_tored']['nosso_numero3'];
+        $campo_livre = $this->dadosBoleto['beneficiario_conta'] . $this->dadosBoleto['beneficiario_conta_dv'] . $this->dadosBoleto['nosso_numero_1'] . $this->dadosBoleto['nosso_numero_constante_1'] . $this->dadosBoleto['nosso_numero_2'] . $this->dadosBoleto['nosso_numero_constante_2'] . $this->dadosBoleto['nosso_numero_3'];
 
         return $campo_livre;
     }
 
     private function formatarNossoNumero()
     {
-        $nnum = $this->dadosBoleto['nosso_numero_constante_1'] . $this->dadosBoleto['nosso_numero_constante_2'] . Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto['nosso_numero_tored']['nosso_numero1'], 3, 0) . Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto['nosso_numero_tored']['nosso_numero2'], 3, 0) . Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto['nosso_numero_tored']['nosso_numero3'], 9, 0);
+        $nnum = $this->dadosBoleto['nosso_numero_constante_1'] . $this->dadosBoleto['nosso_numero_constante_2'] . Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto['nosso_numero_1'], 3, 0) . Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto['nosso_numero_2'], 3, 0) . Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto['nosso_numero_3'], 9, 0);
         $nossonumero = $nnum . $this->digitoVerificador($nnum);
         $this->dadosBoleto['nosso_numero_formatado'] = $nossonumero;
         $this->dadosBoleto['nosso_numero'] = $nossonumero;
