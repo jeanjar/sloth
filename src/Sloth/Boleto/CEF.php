@@ -115,7 +115,7 @@ class Sloth_Boleto_CEF extends Sloth_Boleto
 
             'campo4' => ['posicao' => [4, 1]],
 
-            'campo5_parte1' => ['posicao' => [5, 4]]
+            'campo5_parte1' => ['posicao' => [5, 4]],
             'campo5_parte2' => ['posicao' => [9, 10]]
         );
 
