@@ -199,9 +199,11 @@ class Sloth_Boleto_CEF extends Sloth_Boleto
 
         $digito = $this->modulo11($codigo_digito, 9, false);
 
-        if(in_array($digito, [0, 1, 10, 11]))
+        if(in_array($digito, [0, 1, 10]))
         {
             $digito = 1;
+        } else {
+            $digito = 11 - $digito;
         }
 
         return $digito;
