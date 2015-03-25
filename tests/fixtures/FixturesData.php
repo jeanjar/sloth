@@ -38,7 +38,10 @@ class FixturesData {
         return array(
             "nosso_numero_constante_1" => "2",
             "nosso_numero_constante_2" => "4",
-	    "nosso_numero" => "24001004000000283",
+	          "nosso_numero" => "24001004000000283",
+            'nosso_numero_1' => '001',
+            'nosso_numero_2' => '004',
+            'nosso_numero_3' => '000000283',
             "data_processamento" => "",
             "quantidade" => ""
         );
