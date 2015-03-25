@@ -18,7 +18,7 @@ class BoletoTest extends PHPUnit_Framework_TestCase
 
             $fs_class = 'get_boleto_data';
             $boletoHtml = $boleto->gerarBoleto(Fixtures::$fs_class($key, true));
-            
+
             $this->assertTrue(is_string($boletoHtml));
         }
     }

@@ -115,7 +115,8 @@ class Sloth_Boleto_CEF extends Sloth_Boleto
 
             'campo4' => ['posicao' => [4, 1]],
 
-            'campo5' => ['posicao' => [5, 14]]
+            'campo5_parte1' => ['posicao' => [5, 4]]
+            'campo5_parte2' => ['posicao' => [9, 10]]
         );
 
         $codigo_barras_arr = Sloth_TxtHelper::toraLinha($this->dadosBoleto['codigo_barras'], $codigo_barras);
@@ -125,59 +126,34 @@ class Sloth_Boleto_CEF extends Sloth_Boleto
         $codigo_barras_arr['campo1_parte3'] = $this->modulo10($partes_concat, 2);
         $codigo_barras_arr['campo1_parte4'] = $partes_concat . $codigo_barras_arr['campo1_parte3'];
 
-        $codigo_torado = array(
-            'campo1_parte5' => ['posicao' => [0, 5]],
-            'campo1_parte6' => ['posicao' => [5, 4]]
-        );
-
-        $campo1_tored = Sloth_TxtHelper::toraLinha($codigo_barras_arr['campo1_parte4'], $codigo_torado);
-
-        $campo1 = $campo1_tored['campo1_parte5'] . $campo1_tored['campo1_parte6'];
+        $campo1 = substr($codigo_barras_arr['campo1_parte4'], 0, 5) . '.' .  substr($codigo_barras_arr['campo1_parte4'], 5);
 
         // Campo 2
         $codigo_barras_arr['campo2_parte2'] = $this->modulo10($codigo_barras_arr['campo2_parte1'], 2);
         $codigo_barras_arr['campo2_parte3'] = $codigo_barras_arr['campo2_parte1'] . $codigo_barras_arr['campo2_parte2'];
 
-        $codigo_torado = array(
-            'campo2_parte4' => ['posicao' => [0, 5]],
-            'campo2_parte5' => ['posicao' => [5, 5]]
-        );
-
-        $campo2_tored = Sloth_TxtHelper::toraLinha($codigo_barras_arr['campo2_parte3'], $codigo_torado);
-
-        $campo2 = $campo2_tored['campo2_parte4'] . $campo2_tored['campo2_parte5'];
+        $campo2 = substr($codigo_barras_arr['campo2_parte3'], 0, 5) . '.' . substr($codigo_barras_arr['campo2_parte3'], 5);
 
         // Campo 3
         $codigo_barras_arr['campo3_parte2'] = $this->modulo10($codigo_barras_arr['campo3_parte1'], 2);
         $codigo_barras_arr['campo3_parte3'] = $codigo_barras_arr['campo3_parte1'] . $codigo_barras_arr['campo3_parte2'];
 
-        $codigo_torado = array(
-            'campo3_parte4' => ['posicao' => [0, 5]],
-            'campo3_parte5' => ['posicao' => [5, 5]]
-        );
-
-        $campo3_tored = Sloth_TxtHelper::toraLinha($codigo_barras_arr['campo3_parte3'], $codigo_torado);
-
-
-        $campo3 = $campo3_tored['campo3_parte4'] . $campo3_tored['campo3_parte5'];
-
-        $dv1 = $this->modulo10($campo1, 2);
-        $dv2 = $this->modulo10($campo2, 2);
-        $dv3 = $this->modulo10($campo3, 2);
-
-        $campo1 = Sloth_TxtHelper::mask('#####.#####', $campo1.$dv1);
-        $campo2 = Sloth_TxtHelper::mask('#####.#####', $campo2.$dv2);
-        $campo3 = Sloth_TxtHelper::mask('#####.#####', $campo3.$dv3);
+        $campo3 = substr($codigo_barras_arr['campo3_parte3'], 0, 5) .  '.' . substr($codigo_barras_arr['campo3_parte3'], 5);
 
         $campo4 = $codigo_barras_arr['campo4'];
-        $campo5 = $codigo_barras_arr['campo5'];
+
+        $p1 = substr($this->dadosBoleto['codigo_barras'], 5, 4);
+        $p2 = substr($this->dadosBoleto['codigo_barras'], 9, 10);
+        $campo5 = "$p1$p2";
 
         return "$campo1 $campo2 $campo3 $campo4 $campo5";
     }
 
     private function gerarCodigoBarras()
     {
-        $dv = $this->gerarDigitoVerificadorCodigoBarras();
+        $codigo_digito = $this->dadosBoleto['banco_codigo'] . $this->dadosBoleto['numero_moeda'] . $this->dadosBoleto['fator_vencimento'] . $this->dadosBoleto['valor_boleto_acolchoado'] . $this->dadosBoleto['campo_livre_com_dv'];
+
+        $dv = $this->gerarDigitoVerificadorCodigoBarras($codigo_digito);
 
         $linha = $this->dadosBoleto['banco_codigo'] . $this->dadosBoleto['numero_moeda'] . $dv . $this->dadosBoleto['fator_vencimento'] . $this->dadosBoleto['valor_boleto_acolchoado'] . $this->dadosBoleto['campo_livre_com_dv'];
 
@@ -193,18 +169,15 @@ class Sloth_Boleto_CEF extends Sloth_Boleto
         return $dv;
     }
 
-    private function gerarDigitoVerificadorCodigoBarras()
+    private function gerarDigitoVerificadorCodigoBarras($numero)
     {
-        $codigo_digito = $this->dadosBoleto['banco_codigo'] . $this->dadosBoleto['numero_moeda'] . $this->dadosBoleto['fator_vencimento'] . $this->dadosBoleto['valor_boleto_acolchoado'] . $this->dadosBoleto['campo_livre_com_dv'];
-
-        $digito = $this->modulo11($codigo_digito, 9, false);
-
-        if(in_array($digito, [0, 1, 10, 11]))
-        {
-            $digito = 1;
-        }
-
-        return $digito;
+      $resto2 = $this->modulo11($numero, 9, 1);
+      if ($resto2 == 0 || $resto2 == 1 || $resto2 == 10) {
+      $dv = 1;
+      } else {
+      $dv = 11 - $resto2;
+      }
+      return $dv;
     }
 
     public function modulo11($num, $base=9, $r=0)
