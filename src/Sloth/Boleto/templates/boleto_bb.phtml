@@ -4,7 +4,7 @@
 <title><?php echo $this->dadosBoleto["identificacao"]; ?></title>
 <META http-equiv=Content-Type content=text/html charset=UTF-8>
 <meta name="Generator" content="Licença GPL" />
-    
+
 <style type="text/css">
 <!--
 .ti {font: 9px Arial, Helvetica, sans-serif}
@@ -121,7 +121,7 @@ table.header {
     margin-top: 20px;
     margin-bottom: 10px;
     border-bottom: 2px navy solid;
-    
+
 }
 
 
@@ -141,7 +141,7 @@ table.header div.field_cod_banco {
 table.header td.linha_digitavel {
     width: 464px;
     text-align: right;
-    font: bold 15px Arial; 
+    font: bold 15px Arial;
     color: navy
 }
 
@@ -471,12 +471,24 @@ div.barcode {
     <table cellspacing=0 cellpadding=0 width=666 border=0><TBODY><TR><TD class=ct width=666><div align=right><b class=cp>Recibo
 do Pagador</b></div></TD></tr></tbody></table>
 
-    <?php foreach($this->dadosBoleto['pagador_instrucoes'] as $instrucoes): ?>
-        <p><b><?php echo $instrucoes; ?></b></p>        
-    <?php endforeach; ?>
-    <?php foreach($this->dadosBoleto['pagador_demonstrativo'] as $demonstrativo): ?>
-        <p><?php echo $demonstrativo; ?></p>        
-    <?php endforeach; ?>
+    <?php
+        if(isset($this->dadosBoleto['pagador_instrucoes'])):
+        foreach($this->dadosBoleto['pagador_instrucoes'] as $instrucoes):
+    ?>
+        <p><b><?php echo $instrucoes; ?></b></p>
+    <?php
+        endforeach;
+        endif;
+     ?>
+    <?php
+        if(isset($this->dadosBoleto['pagador_demonstrativo'])):
+        foreach($this->dadosBoleto['pagador_demonstrativo'] as $demonstrativo):
+     ?>
+        <p><?php echo $demonstrativo; ?></p>
+    <?php
+    endforeach;
+    endif;
+    ?>
         <table class="header" border=0 cellspacing="0" cellpadding="0">
             <tbody>
                 <tr valign="bottom">
@@ -547,7 +559,7 @@ do Pagador</b></div></TD></tr></tbody></table>
         </tbody>
         </table>
 
-      
+
         <table class="line" cellspacing="0" cellpadding="0">
         <tbody>
         <tr class="titulos">
@@ -558,13 +570,13 @@ do Pagador</b></div></TD></tr></tbody></table>
         </tr>
         </tbody>
         </table>
-        
+
         <div class="footer">
             <p>Autentica&ccedil;&atilde;o mec&acirc;nica</p>
         </div>
 
-        
-        
+
+
         <div class="cut">
             <p>Corte na linha pontilhada</p>
         </div>
@@ -594,7 +606,7 @@ do Pagador</b></div></TD></tr></tbody></table>
         </tr>
         </tbody>
         </table>
-        
+
         <table class="line" cellspacing="0" cellpadding="0">
         <tbody>
         <tr class="titulos">
@@ -649,8 +661,8 @@ do Pagador</b></div></TD></tr></tbody></table>
         </tr>
         </tbody>
         </table>
-        
-        
+
+
         <table class="line" cellspacing="0" cellpadding="0">
         <tbody>
         <tr><td class="last_line" rowspan="6">
@@ -664,19 +676,19 @@ do Pagador</b></div></TD></tr></tbody></table>
             <tr class="campos">
                 <td class="instrucoes" rowspan="5">
                     <?php foreach($this->dadosBoleto['pagador_instrucoes'] as $instrucoes): ?>
-                        <p><b><?php echo $instrucoes; ?></b></p>        
+                        <p><b><?php echo $instrucoes; ?></b></p>
                     <?php endforeach; ?>
                     <?php foreach($this->dadosBoleto['pagador_demonstrativo'] as $demonstrativo): ?>
-                        <p><?php echo $demonstrativo; ?></p>        
+                        <p><?php echo $demonstrativo; ?></p>
                     <?php endforeach; ?>
-                    
-                    
+
+
                 </td>
             </tr>
             </tbody>
             </table>
         </td></tr>
-        
+
         <tr><td>
             <table class="line" cellspacing="0" cellpadding="0">
             <tbody>
@@ -689,7 +701,7 @@ do Pagador</b></div></TD></tr></tbody></table>
             </tbody>
             </table>
         </td></tr>
-        
+
         <tr><td>
             <table class="line" cellspacing="0" cellpadding="0">
             <tbody>
@@ -743,8 +755,8 @@ do Pagador</b></div></TD></tr></tbody></table>
         </td></tr>
         </tbody>
         </table>
-        
-        
+
+
         <table class="line" cellspacing="0" cellPadding="0">
         <tbody>
         <tr class="titulos">
@@ -754,13 +766,13 @@ do Pagador</b></div></TD></tr></tbody></table>
             <td class="pagador2">
                 <p><?php echo $this->dadosBoleto["pagador"]?> - <?php echo $this->dadosBoleto['pagador_identificador'] ?></p>
                 <?php foreach($this->dadosBoleto["pagador_endereco"] as $endereco): ?>
-                    <p><?php echo $endereco ?></p> 
+                    <p><?php echo $endereco ?></p>
                 <?php endforeach; ?>
             </td>
         </tr>
         </tbody>
-        </table>        
-        
+        </table>
+
         <table class="line" cellspacing="0" cellpadding="0">
         <tbody>
         <tr class="titulos">
@@ -771,7 +783,7 @@ do Pagador</b></div></TD></tr></tbody></table>
             <td class="cod_baixa">C&oacute;d. baixa</td>
         </tr>
         </tbody>
-        </table>        
+        </table>
     <table cellspacing=0 cellpadding=0 width=666 border=0><TBODY><TR><TD width=666 align=right ><font style="font-size: 10px;">Autentica&ccedil;&atilde;o mec&acirc;nica - Ficha de Compensação</font></TD></tr></tbody></table>
         <div class="barcode">
             <p><?php $this->imprimirCodigoBarras($this->dadosBoleto["codigo_barras"]); ?></p>

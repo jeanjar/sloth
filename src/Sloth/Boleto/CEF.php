@@ -1,20 +1,24 @@
 <?php
 
-class Sloth_Boleto_Brasil extends Sloth_Boleto
+class Sloth_Boleto_CEF extends Sloth_Boleto
 {
-    public $template = 'boleto_bb';
+    public $template = 'boleto_cef';
     public $convenio;
 
     public function __construct()
     {
         parent::__construct();
-        $this->dadosBoletoRequeridos = array_merge($this->dadosBoletoRequeridos, ['especie',
-        'aceite',
-        'especie_doc',
-        'numero_documento',
-        'contrato',
-        'pagador_identificador',
-        'carteira']);
+        $this->dadosBoletoRequeridos = array_merge($this->dadosBoletoRequeridos, [
+            'especie',
+            'aceite',
+            'especie_doc',
+            'numero_documento',
+            'contrato',
+            'pagador_identificador',
+            'data_processamento',
+            'nosso_numero_constante_1',
+            'nosso_numero_constante_2',
+        ]);
     }
 
     public function configurarBoleto($dadosBoleto = array())
@@ -34,11 +38,13 @@ class Sloth_Boleto_Brasil extends Sloth_Boleto
             return false;
         }
 
-        if(!isset($this->dadosBoleto['numero_moeda']))
-        {
-            $banco = new Sloth_Banco_Brasil(['assets' => '', 'rel_path' => '']);
-            $this->dadosBoleto['numero_moeda'] = $banco->numero_moeda;
-        }
+        $nosso_numero_split = array(
+            'nosso_numero1' => ['posicao' => array(0, 3)],
+            'nosso_numero2' => ['posicao' => array(4, 3)],
+            'nosso_numero3' => ['posicao' => array(8, 9)],
+        );
+
+        $this->dadosBoleto['nosso_numero_tored'] = Sloth_TxtHelper::toraLinha($this->dadosBoleto['nosso_numero'], $nosso_numero_split);
 
         $this->dadosBoleto['convenio'] = $this->convenio;
         $this->dadosBoleto['banco_codigo_dv'] = $this->gerarCodigoBancoComDigitoVerificador($this->dadosBoleto['banco_codigo']);
@@ -46,59 +52,55 @@ class Sloth_Boleto_Brasil extends Sloth_Boleto
         $this->dadosBoleto['zeros_livre'] = '000000';
 
         $this->dadosBoleto['valor_boleto_acolchoado'] = Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto['valor_boleto'], 10, 0);
-        $this->dadosBoleto['nosso_numero_acolchoado'] = Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto['nosso_numero'], 8, 0);
+
+        if(!isset($this->dadosBoleto['valor_unitario']))
+        {
+            $this->dadosBoleto['valor_unitario'] = $this->dadosBoleto['valor_boleto_acolchoado'];
+        }
+
+        $this->dadosBoleto['nosso_numero_acolchoado'] = Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto['nosso_numero'], 17, 0);
         $this->dadosBoleto['beneficiario_agencia_acolchoado'] = Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto['beneficiario_agencia'], 4, 0);
         $this->dadosBoleto['beneficiario_conta_acolchoado'] = Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto['beneficiario_conta'], 5, 0);
+        $this->dadosBoleto['beneficiario_conta_dv'] = $this->dadosBoleto['beneficiario_dv_conta'];
+
+        $this->dadosBoleto['campo_livre'] = $this->gerarCampoLivre();
+        $this->dadosBoleto['campo_livre_dv'] = $this->digitoVerificador($this->dadosBoleto['campo_livre']);
+        $this->dadosBoleto['campo_livre_com_dv'] = $this->dadosBoleto['campo_livre'] . $this->dadosBoleto['campo_livre_dv'];
 
         $this->formatarNossoNumero();
 
         $this->dadosBoleto['codigo_barras'] = $this->gerarCodigoBarras();
-        $this->dadosBoleto['linha_digitavel'] = $this->montarLinhaDigitavel();
+        $linha = $this->dadosBoleto['linha_digitavel'] = $this->montarLinhaDigitavel();
 
         // @TODO: ajeitar isso aqui..
         $this->dadosBoleto['beneficiario_agencia_codigo'] = $this->dadosBoleto['beneficiario_agencia_acolchoado']." / ". $this->dadosBoleto['beneficiario_conta']."-".$this->modulo10($this->dadosBoleto['beneficiario_agencia_acolchoado'].$this->dadosBoleto['beneficiario_conta_acolchoado'], 2);
 
     }
 
-    private function formatarNossoNumero()
+    private function gerarCampoLivre()
     {
-        $formatacao_convenio = strlen($this->convenio);
+        $campo_livre = $this->dadosBoleto['beneficiario_conta'] . $this->dadosBoleto['beneficiario_conta_dv'] . $this->dadosBoleto['nosso_numero_1'] . $this->dadosBoleto['nosso_numero_constante_1'] . $this->dadosBoleto['nosso_numero_2'] . $this->dadosBoleto['nosso_numero_constante_2'] . $this->dadosBoleto['nosso_numero_3'];
 
-        if($this->dadosBoleto["carteira"] == 18)
-        {
-            $nossonumero = $this->formatarNossoNumeroCarteira18($formatacao_convenio);
-        }
-
-        $this->dadosBoleto['nosso_numero_formatado'] = $nossonumero;
+        return $campo_livre;
     }
 
-    private function formatarNossoNumeroCarteira18($formatacao_convenio)
+    private function formatarNossoNumero()
     {
-        // Carteira 18 com Convênio de 8 dígitos
-        if ($formatacao_convenio == 8)
-        {
+        $nnum = $this->dadosBoleto['nosso_numero_constante_1'] . $this->dadosBoleto['nosso_numero_constante_2'] . Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto['nosso_numero_1'], 3, 0) . Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto['nosso_numero_2'], 3, 0) . Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto['nosso_numero_3'], 9, 0);
+        $nossonumero = $nnum . $this->digitoVerificador($nnum);
+        $this->dadosBoleto['nosso_numero_formatado'] = $nossonumero;
+        $this->dadosBoleto['nosso_numero'] = $nossonumero;
 
-            $convenio = Sloth_TxtHelper::acolchoarNumero($this->convenio,8,0);
+    }
 
-            // Nosso número de até 9 dígitos
-            $nossonumero = Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto["nosso_numero"],9,0);
-            $this->dadosBoleto['nosso_numero_acolchoado'] = $nossonumero;
-            $nossonumero = $convenio . $nossonumero ."-". $this->modulo11($convenio.$nossonumero);
-
+    private function digitoVerificador_barra($numero) {
+        $resto2 = modulo_11($numero, 9, 1);
+        if ($resto2 == 0 || $resto2 == 1 || $resto2 == 10) {
+            $dv = 1;
+        } else {
+            $dv = 11 - $resto2;
         }
-
-        // Carteira 18 com Convênio de 7 dígitos
-        if ($formatacao_convenio == 7)
-        {
-            $convenio = Sloth_TxtHelper::formataConvenio($this->convenio,7,0);
-
-            $nossonumero = Sloth_TxtHelper::acolchoarNumero($this->dadosBoleto["nosso_numero"],10,0);
-            $this->dadosBoleto['nosso_numero_acolchoado'] = $nossonumero;
-            $nossonumero = $convenio.$nossonumero;
-
-        }
-
-        return $nossonumero;
+        return $dv;
     }
 
     private function montarLinhaDigitavel()
@@ -113,7 +115,8 @@ class Sloth_Boleto_Brasil extends Sloth_Boleto
 
             'campo4' => ['posicao' => [4, 1]],
 
-            'campo5' => ['posicao' => [5, 14]]
+            'campo5_parte1' => ['posicao' => [5, 4]],
+            'campo5_parte2' => ['posicao' => [9, 10]]
         );
 
         $codigo_barras_arr = Sloth_TxtHelper::toraLinha($this->dadosBoleto['codigo_barras'], $codigo_barras);
@@ -123,77 +126,58 @@ class Sloth_Boleto_Brasil extends Sloth_Boleto
         $codigo_barras_arr['campo1_parte3'] = $this->modulo10($partes_concat, 2);
         $codigo_barras_arr['campo1_parte4'] = $partes_concat . $codigo_barras_arr['campo1_parte3'];
 
-        $codigo_torado = array(
-            'campo1_parte5' => ['posicao' => [0, 5]],
-            'campo1_parte6' => ['posicao' => [5, 4]]
-        );
-
-        $campo1_tored = Sloth_TxtHelper::toraLinha($codigo_barras_arr['campo1_parte4'], $codigo_torado);
-
-        $campo1 = $campo1_tored['campo1_parte5'] . $campo1_tored['campo1_parte6'];
+        $campo1 = substr($codigo_barras_arr['campo1_parte4'], 0, 5) . '.' .  substr($codigo_barras_arr['campo1_parte4'], 5);
 
         // Campo 2
         $codigo_barras_arr['campo2_parte2'] = $this->modulo10($codigo_barras_arr['campo2_parte1'], 2);
         $codigo_barras_arr['campo2_parte3'] = $codigo_barras_arr['campo2_parte1'] . $codigo_barras_arr['campo2_parte2'];
 
-        $codigo_torado = array(
-            'campo2_parte4' => ['posicao' => [0, 5]],
-            'campo2_parte5' => ['posicao' => [5, 5]]
-        );
-
-        $campo2_tored = Sloth_TxtHelper::toraLinha($codigo_barras_arr['campo2_parte3'], $codigo_torado);
-
-        $campo2 = $campo2_tored['campo2_parte4'] . $campo2_tored['campo2_parte5'];
+        $campo2 = substr($codigo_barras_arr['campo2_parte3'], 0, 5) . '.' . substr($codigo_barras_arr['campo2_parte3'], 5);
 
         // Campo 3
         $codigo_barras_arr['campo3_parte2'] = $this->modulo10($codigo_barras_arr['campo3_parte1'], 2);
         $codigo_barras_arr['campo3_parte3'] = $codigo_barras_arr['campo3_parte1'] . $codigo_barras_arr['campo3_parte2'];
 
-        $codigo_torado = array(
-            'campo3_parte4' => ['posicao' => [0, 5]],
-            'campo3_parte5' => ['posicao' => [5, 5]]
-        );
-
-        $campo3_tored = Sloth_TxtHelper::toraLinha($codigo_barras_arr['campo3_parte3'], $codigo_torado);
-
-
-        $campo3 = $campo3_tored['campo3_parte4'] . $campo3_tored['campo3_parte5'];
-
-        $dv1 = $this->modulo10($campo1, 2);
-        $dv2 = $this->modulo10($campo2, 2);
-        $dv3 = $this->modulo10($campo3, 2);
-
-        $campo1 = Sloth_TxtHelper::mask('#####.#####', $campo1.$dv1);
-        $campo2 = Sloth_TxtHelper::mask('#####.#####', $campo2.$dv2);
-        $campo3 = Sloth_TxtHelper::mask('#####.#####', $campo3.$dv3);
+        $campo3 = substr($codigo_barras_arr['campo3_parte3'], 0, 5) .  '.' . substr($codigo_barras_arr['campo3_parte3'], 5);
 
         $campo4 = $codigo_barras_arr['campo4'];
-        $campo5 = $codigo_barras_arr['campo5'];
+
+        $p1 = substr($this->dadosBoleto['codigo_barras'], 5, 4);
+        $p2 = substr($this->dadosBoleto['codigo_barras'], 9, 10);
+        $campo5 = "$p1$p2";
 
         return "$campo1 $campo2 $campo3 $campo4 $campo5";
     }
 
     private function gerarCodigoBarras()
     {
-        $dv = $this->gerarDigitoVerificadorCodigoBarras();
+        $codigo_digito = $this->dadosBoleto['banco_codigo'] . $this->dadosBoleto['numero_moeda'] . $this->dadosBoleto['fator_vencimento'] . $this->dadosBoleto['valor_boleto_acolchoado'] . $this->dadosBoleto['campo_livre_com_dv'];
 
-        $linha = $this->dadosBoleto['banco_codigo'] . $this->dadosBoleto['numero_moeda'] . $dv . $this->dadosBoleto['fator_vencimento'] . $this->dadosBoleto['valor_boleto_acolchoado'] . $this->dadosBoleto['zeros_livre'] . $this->dadosBoleto['convenio'] . $this->dadosBoleto['nosso_numero_acolchoado'] . $this->dadosBoleto['carteira'];
+        $dv = $this->gerarDigitoVerificadorCodigoBarras($codigo_digito);
+
+        $linha = $this->dadosBoleto['banco_codigo'] . $this->dadosBoleto['numero_moeda'] . $dv . $this->dadosBoleto['fator_vencimento'] . $this->dadosBoleto['valor_boleto_acolchoado'] . $this->dadosBoleto['campo_livre_com_dv'];
 
         return $linha;
     }
 
-    private function gerarDigitoVerificadorCodigoBarras()
+    private function digitoVerificador($numero)
     {
-        $codigo_digito = $this->dadosBoleto['banco_codigo'] . $this->dadosBoleto['numero_moeda'] . $this->dadosBoleto['fator_vencimento'] . $this->dadosBoleto['valor_boleto_acolchoado'] . $this->dadosBoleto['zeros_livre'] . $this->dadosBoleto['convenio'] . $this->dadosBoleto['nosso_numero_acolchoado'] . $this->dadosBoleto['carteira'];
+        $resto2 = $this->modulo11($numero, 9, 1);
+        $digito = 11 - $resto2;
+        if ($digito == 10 || $digito == 11) $digito = 0;
+        $dv = $digito;
+        return $dv;
+    }
 
-        $digito = $this->modulo11($codigo_digito, 9, false);
-
-        if(in_array($digito, [0, 1, 10, 11]))
-        {
-            $digito = 1;
-        }
-
-        return $digito;
+    private function gerarDigitoVerificadorCodigoBarras($numero)
+    {
+      $resto2 = $this->modulo11($numero, 9, 1);
+      if ($resto2 == 0 || $resto2 == 1 || $resto2 == 10) {
+      $dv = 1;
+      } else {
+      $dv = 11 - $resto2;
+      }
+      return $dv;
     }
 
     public function modulo11($num, $base=9, $r=0)
@@ -217,7 +201,7 @@ class Sloth_Boleto_Brasil extends Sloth_Boleto
 
             //corrigido
             if ($digito == 10) {
-                $digito = "X";
+                $digito = "0";
             }
 
 

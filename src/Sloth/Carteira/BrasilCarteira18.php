@@ -12,13 +12,13 @@ class Sloth_Carteira_BrasilCarteira18 extends Sloth_Banco_Brasil
         $this->permite_retorno = true;
         $this->permite_remessa = false;
         $this->template_boleto = 'Sloth_Boleto_Brasil';
-        
+
         $this->arquivos = array(
-            'retorno' => 'Sloth_Retorno_CNAB240',
+            'retorno' => 'Sloth_Retorno_CNAB400',
             'remessa' => '',
         );
     }
-    
+
     public function processarRetorno($caminho_arquivo, $evento)
     {
         if($this->permite_retorno && array_key_exists('retorno', $this->arquivos))
@@ -36,7 +36,7 @@ class Sloth_Carteira_BrasilCarteira18 extends Sloth_Banco_Brasil
     {
         $boleto = new $this->template_boleto;
         $boleto->convenio = $this->convenio;
-        
+
         if(!empty($dadosBoleto))
         {
             $dadosBoleto['carteira'] = $this->indice;

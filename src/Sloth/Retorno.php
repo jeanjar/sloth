@@ -16,7 +16,11 @@ abstract class Sloth_Retorno extends Sloth_Arquivo
 
     public function processar()
     {
-        $linhas = file($this->obterNomeArquivo());
+        if (is_string($this->obterNomeArquivo())) {
+            $linhas = file($this->obterNomeArquivo());
+        } else {
+            $linhas = $this->obterNomeArquivo();
+        }
 
         foreach ($linhas as $num => $linha)
         {

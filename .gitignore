@@ -3,3 +3,5 @@
 sloth.kdev4
 .directory
 nbproject/
+build/
+codeclimate.json

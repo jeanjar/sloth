@@ -30,11 +30,11 @@ class Sloth_Boleto
 
     public function renderizar($template = null, $arquivo = null)
     {
-    	if(!$arquivo)
+    	if($arquivo === null)
     	{
     		$arquivo = $this->template . '.phtml';
     	}
-    	if(!$template)
+    	if($template === null)
     	{
     		$template = 'Boleto/templates/';
     	}
@@ -46,6 +46,11 @@ class Sloth_Boleto
 
     public function gerarFatorVencimento($data_vencimento)
     {
+        if(!$data_vencimento)
+        {
+            return '0000';
+        }
+        
         /*$data_vencimento = date('Y-m-d', strtotime($data_vencimento));
         $data_vencimento = strtotime($data_vencimento);
 
@@ -54,7 +59,7 @@ class Sloth_Boleto
         $datediff = abs($data_vencimento - $date);
 
         return floor($datediff / (60*60*24));*/
-	    $data = explode("/",$data_vencimento); 
+	    $data = explode("/",$data_vencimento);
 	    $ano = $data[2];
 	    $mes = $data[1];
 	    $dia = $data[0];
@@ -80,7 +85,7 @@ class Sloth_Boleto
 		    floor(( 153 * $month +  2) /  5 ) +
 			$day +  1721119);
 	}
-        
+
     public function modulo11($num, $base, $retorne_resto = false)
     {
         $soma = 0;
